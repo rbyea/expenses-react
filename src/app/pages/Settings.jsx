@@ -64,7 +64,7 @@ const Settings = (props) => {
                 id="profile-tab-pane"
                 role="tabpanel"
                 aria-labelledby="profile-tab"
-                tabindex="0"
+                tabIndex="0"
               >
                 <h6 className="mb-4">User Profile</h6>
 
@@ -121,7 +121,7 @@ const Settings = (props) => {
                 id="password-tab-pane"
                 role="tabpanel"
                 aria-labelledby="password-tab"
-                tabindex="0"
+                tabIndex="0"
               >
                 <h6 className="mb-4">Password</h6>
 
@@ -178,7 +178,7 @@ const Settings = (props) => {
                 id="notification-tab-pane"
                 role="tabpanel"
                 aria-labelledby="notification-tab"
-                tabindex="0"
+                tabIndex="0"
               >
                 <h6 className="mb-4">Notification</h6>
 
@@ -191,7 +191,7 @@ const Settings = (props) => {
                   <div className="form-check form-switch d-flex mb-3 ps-0">
                     <label
                       className="form-check-label"
-                      for="flexSwitchCheckCheckedOne"
+                      htmlFor="flexSwitchCheckCheckedOne"
                     >
                       Account activity
                     </label>
@@ -202,14 +202,13 @@ const Settings = (props) => {
                       name="form-check-input"
                       role="switch"
                       id="flexSwitchCheckCheckedOne"
-                      checked
                     />
                   </div>
 
                   <div className="form-check form-switch d-flex mb-3 ps-0">
                     <label
                       className="form-check-label"
-                      for="flexSwitchCheckCheckedTwo"
+                      htmlFor="flexSwitchCheckCheckedTwo"
                     >
                       Payment updated
                     </label>
@@ -220,7 +219,6 @@ const Settings = (props) => {
                       name="form-check-input"
                       role="switch"
                       id="flexSwitchCheckCheckedTwo"
-                      checked
                     />
                   </div>
 

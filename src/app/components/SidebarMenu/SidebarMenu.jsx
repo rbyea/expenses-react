@@ -1,39 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { nanoid } from 'nanoid'
+import { Link, useLocation } from "react-router-dom";
+import { nanoid } from "nanoid";
 
-import {
-  FaHome,
-  FaWallet,
-  FaUserCog,
-  FaUserAlt,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { FaHome, FaWallet, FaUserCog, FaSignOutAlt } from "react-icons/fa";
 
 const SidebarMenu = (props) => {
+  const { pathname } = useLocation();
+
   const listMenu = [
     {
       _id: nanoid(),
       name: "Главная",
-      icon: <FaHome className="me-2"/>,
-      link: "/"
+      icon: <FaHome className="me-2" />,
+      link: "/",
     },
     {
       _id: nanoid(),
       name: "Кошелек",
-      icon: <FaWallet className="me-2"/>,
-      link: "wallet"
+      icon: <FaWallet className="me-2" />,
+      link: "/wallet",
     },
     {
       _id: nanoid(),
       name: "Настройки",
-      icon: <FaUserCog className="me-2"/>,
-      link: "settings"
+      icon: <FaUserCog className="me-2" />,
+      link: "/settings",
     },
     {
       _id: nanoid(),
       name: "Выход",
-      icon: <FaSignOutAlt className="me-2"/>,
+      icon: <FaSignOutAlt className="me-2" />,
     },
   ];
 
@@ -44,17 +40,24 @@ const SidebarMenu = (props) => {
     >
       <div className="position-sticky py-4 px-3 sidebar-sticky">
         <ul className="nav flex-column h-100">
-
-          {
-            listMenu.map(el => (
-              <li key={el._id} className={el.name === "Выход" ? `nav-item border-top mt-auto pt-2` : 'nav-item'}>
-                <Link className="nav-link" to={el.link ? el.link : "/"}>
-                  {el.icon}
-                  {el.name}
-                </Link>
-              </li>
-            ))
-          }
+          {listMenu.map((el) => (
+            <li
+              key={el._id}
+              className={
+                el.name === "Выход"
+                  ? `nav-item border-top mt-auto pt-2`
+                  : "nav-item"
+              }
+            >
+              <Link
+                className={`nav-link ${el.link === pathname ? "active" : ""}`}
+                to={el.link ? el.link : "/"}
+              >
+                {el.icon}
+                {el.name}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>

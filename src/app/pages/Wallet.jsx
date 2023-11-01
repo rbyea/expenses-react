@@ -6,7 +6,7 @@ import Footer from "../components/Footer/Footer";
 const Wallet = (props) => {
   return (
     <main
-    class="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start"
+    className="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start"
   >
       <div className="title-group mb-3">
         <h1 className="h2 mb-0">Кошелек</h1>

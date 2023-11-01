@@ -29,5 +29,7 @@ module.exports = {
       },
     ],
     "object-shorthand": 0,
+    "comma-dangle": [2, "always-multiline"]
   },
+  
 };
