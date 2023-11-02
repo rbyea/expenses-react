@@ -32,21 +32,6 @@ const Header = (props) => {
         <span className="navbar-toggler-icon"></span>
       </button>
 
-      <form
-        className="custom-form header-form ms-lg-3 ms-md-3 me-lg-auto me-md-auto order-2 order-lg-0 order-md-0"
-        action="#"
-        method="get"
-        role="form"
-      >
-        <input
-          className="form-control"
-          name="search"
-          type="text"
-          placeholder="Search"
-          aria-label="Search"
-        />
-      </form>
-
       <div className="navbar-nav me-lg-2">
         <div className="nav-item text-nowrap d-flex align-items-center">
           <div className="dropdown ps-3">
