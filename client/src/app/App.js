@@ -5,19 +5,24 @@ import Main from "./pages/Main";
 import { Route, Switch } from "react-router-dom";
 import Wallet from "./pages/Wallet";
 import Settings from "./pages/Settings";
+import Login from "./pages/Login";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
+  const { pathname } = useLocation();
+
   return (
     <div className="App">
       <Header />
 
       <div className="container-fluid">
         <div className="row">
-          <SidebarMenu />
+          {pathname !== "/login" && <SidebarMenu />}
           <Switch>
             <Route exact path="/" component={Main} />
             <Route path="/wallet" component={Wallet} />
             <Route path="/settings" component={Settings} />
+            <Route path="/login/:type?" component={Login} />
           </Switch>
         </div>
       </div>
