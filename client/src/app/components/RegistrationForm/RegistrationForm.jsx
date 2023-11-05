@@ -1,8 +1,12 @@
 import React from "react";
 import InputField from "../../ui/Form/InputField";
 import { validator } from "../../utils/validator";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../store/usersSlice";
 
 const RegistrationForm = (props) => {
+  const dispatch = useDispatch();
+
   const [data, setData] = React.useState({
     name: "",
     email: "",
@@ -67,7 +71,8 @@ const RegistrationForm = (props) => {
 
     if (!isValid) return;
 
-    console.log(data);
+    const redirect = "/";
+    dispatch(signUp({ payload: data, redirect }));
   };
 
   return (

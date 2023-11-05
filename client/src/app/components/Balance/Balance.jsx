@@ -5,7 +5,6 @@ import { addMoneyInBalance, getBalance } from "../../store/balanceSlice";
 const Balance = (props) => {
   const dispatch = useDispatch();
   const currentBalance = useSelector(getBalance());
-  console.log(currentBalance);
 
   const handleButton = (money) => {
     dispatch(addMoneyInBalance(money));
