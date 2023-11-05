@@ -7,15 +7,18 @@ const InputField = ({ type, name, placeholder, value, error, onChange }) => {
   };
 
   return (
-    <input
-      className="form-control"
-      value={value || ""}
-      type={type}
-      name={name}
-      id={name}
-      placeholder={placeholder}
-      onChange={(e) => handleChange(e.target.value)}
-    />
+    <div className="form-col">
+      <input
+        className="form-control"
+        value={value || ""}
+        type={type}
+        name={name}
+        id={name}
+        placeholder={placeholder}
+        onChange={(e) => handleChange(e.target.value)}
+      />
+      <span className="error-form">{error}</span>
+    </div>
   );
 };
 

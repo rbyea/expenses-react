@@ -17935,3 +17935,15 @@ strong {
 .custom-btn svg {
   margin-left: 10px;
 }
+
+.form-col {
+  position: relative;
+}
+
+.form-col .error-form {
+  position: absolute;
+  bottom: -18px;
+  left: 21px;
+  font-size: 12px;
+  color: red;
+}

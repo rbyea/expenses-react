@@ -17,7 +17,9 @@ function App() {
 
       <div className="container-fluid">
         <div className="row">
-          {pathname !== "/login" && <SidebarMenu />}
+          {pathname !== "/login" && pathname !== "/login/register" && (
+            <SidebarMenu />
+          )}
           <Switch>
             <Route exact path="/" component={Main} />
             <Route path="/wallet" component={Wallet} />
