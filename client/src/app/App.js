@@ -7,9 +7,17 @@ import Wallet from "./pages/Wallet";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+// import { useDispatch } from "react-redux";
+// import { loadUsersList } from "./store/usersSlice";
 
 function App() {
   const { pathname } = useLocation();
+
+  // const dispatch = useDispatch();
+
+  // React.useEffect(() => {
+  //   dispatch(loadUsersList());
+  // }, []);
 
   return (
     <div className="App">

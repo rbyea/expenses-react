@@ -1,8 +1,11 @@
 import React from "react";
 import InputField from "../../ui/Form/InputField";
 import { validator } from "../../utils/validator";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/usersSlice";
 
 const LoginForm = (props) => {
+  const dispatch = useDispatch();
   const [data, setData] = React.useState({
     email: "",
     password: "",
@@ -50,13 +53,13 @@ const LoginForm = (props) => {
   const onSubmitForm = (e) => {
     e.preventDefault();
 
-    // const redirect = "/";
-
     const isValid = validate();
 
     if (!isValid) return;
 
-    console.log(data);
+    const redirect = "/";
+
+    dispatch(login({ payload: data, redirect }));
   };
   return (
     <form className="custom-form profile-form" onSubmit={onSubmitForm}>

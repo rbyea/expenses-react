@@ -35,7 +35,6 @@ async function start() {
     );
   } catch (error) {
     console.log(chalk.red(error.message));
-    process.exit(1);
   }
 }
 
