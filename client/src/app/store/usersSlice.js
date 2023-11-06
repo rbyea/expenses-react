@@ -41,6 +41,11 @@ const usersSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
+    userLogOut: (state) => {
+      state.entities = null;
+      state.isLoading = false;
+      state.auth = null;
+    },
     authRequestSuccess: (state, action) => {
       state.auth = action.payload;
       state.isLoading = false;
@@ -57,6 +62,7 @@ const {
   usersRequested,
   usersReceived,
   usersGetFailed,
+  userLogOut,
   authRequestFailed,
   authRequestSuccess,
 } = actions;
@@ -112,5 +118,14 @@ export const loadUsersList = () => async (dispatch) => {
     usersGetFailed(error.message);
   }
 };
+
+export const LogOut = () => async (dispatch) => {
+  dispatch(usersRequested());
+  dispatch(userLogOut());
+  localStorageService.removeAllKey();
+  history.push("/login");
+};
+
+export const getIsLoggedIn = () => (state) => state.users.auth;
 
 export default usersReducer;

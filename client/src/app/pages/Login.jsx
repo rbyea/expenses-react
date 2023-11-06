@@ -19,6 +19,9 @@ const Login = () => {
 
   return (
     <div className="row my-4">
+      <h2 className="h2-login">
+        Авторизуйтесь для доступа к приложению
+      </h2>
       <div className="col-lg-12 col-12">
         <div className="custom-block bg-white">
           <ul className="nav nav-tabs">
