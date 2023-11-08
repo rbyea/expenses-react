@@ -95,7 +95,7 @@ export const login = ({ payload, redirect }) => {
 
       localStorageService.setTokens(data);
 
-      history.push(redirect);
+      history.push(`${redirect}${data.userId}`);
     } catch (error) {
       const { code, message } = error.response.data.error;
 
@@ -126,6 +126,17 @@ export const LogOut = () => async (dispatch) => {
   history.push("/login");
 };
 
+export const getCurrentUserId = () => (state) => {
+  return state.users.auth ? state.users.auth.userId : null;
+};
+
+export const getCurrentUser = (id) => (state) => {
+  return state.users.entities
+    ? state.users.entities.find((user) => user._id === id)
+    : null;
+};
+
 export const getIsLoggedIn = () => (state) => state.users.auth;
+export const getUsersList = () => (state) => state.users.entities;
 
 export default usersReducer;

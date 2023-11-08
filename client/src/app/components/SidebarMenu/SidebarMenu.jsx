@@ -3,12 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 import { FaHome, FaWallet, FaUserCog, FaSignOutAlt } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { LogOut } from "../../store/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { LogOut, getIsLoggedIn } from "../../store/usersSlice";
 
 const SidebarMenu = (props) => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const { userId } = useSelector(getIsLoggedIn());
 
   const handleButton = (e) => {
     e.preventDefault();
@@ -20,19 +21,19 @@ const SidebarMenu = (props) => {
       _id: nanoid(),
       name: "Главная",
       icon: <FaHome className="me-2" />,
-      link: "/",
+      link: `/${userId}`,
     },
     {
       _id: nanoid(),
       name: "Кошелек",
       icon: <FaWallet className="me-2" />,
-      link: "/wallet",
+      link: `/wallet/${userId}`,
     },
     {
       _id: nanoid(),
       name: "Настройки",
       icon: <FaUserCog className="me-2" />,
-      link: "/settings",
+      link: `/settings/${userId}`,
     },
   ];
 

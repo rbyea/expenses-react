@@ -12,8 +12,6 @@ const Main = (props) => {
     <main className="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start">
       <div className="title-group mb-3">
         <h1 className="h2 mb-0">Главная</h1>
-
-        <small className="text-muted">Hello Thomas, welcome back!</small>
       </div>
 
       <div className="row my-4">

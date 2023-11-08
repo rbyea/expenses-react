@@ -14,4 +14,16 @@ router.get("/", async (req, res) => {
   }
 });
 
+// router.get("/:userId", auth, async(req,res) => {
+//   try {
+//     const {userId} = req.params;
+
+//     if(userId === req.user._id) {
+//       const u
+//     }
+//   } catch (error) {
+    
+//   }
+// })
+
 module.exports = router;

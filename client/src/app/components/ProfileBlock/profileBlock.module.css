@@ -1,0 +1,11 @@
+.customBlockImageCircle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 40px;
+}
