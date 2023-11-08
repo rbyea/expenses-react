@@ -83,7 +83,7 @@ const Transations = (props) => {
         </div>
 
         <div className="border-top pt-4 mt-4 text-center">
-          <a className="btn custom-btn" href="wallet">
+          <a className="btn custom-btn" href="#">
             Просмотреть все транзакции
             <FaFolderOpen />
           </a>
