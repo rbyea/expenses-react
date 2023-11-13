@@ -1,0 +1,49 @@
+.popupDefault {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.popupContainer {
+  position: relative;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 40px 25px;
+  max-width: 860px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 8px 9.94853px 0 rgba(70,75,100,.12), 0 12px 16.51611px 0 rgba(70,75,100,.16)
+}
+
+.popupClose {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.popupContent {
+
+}
+
+.item {
+  margin-bottom: 20px;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+.popupForm {
+  margin-top: 20px;
+}

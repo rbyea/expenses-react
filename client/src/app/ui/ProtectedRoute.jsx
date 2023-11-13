@@ -7,8 +7,6 @@ import PropTypes from "prop-types";
 const ProtectedRoute = ({ component: Component, children, ...rest }) => {
   const isLoggedIn = useSelector(getIsLoggedIn());
 
-  console.log(isLoggedIn);
-
   return (
     <Route
       {...rest}

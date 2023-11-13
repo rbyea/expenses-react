@@ -17951,3 +17951,17 @@ strong {
 .h2-login {
   text-align: center;
 }
+
+.nav-link-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ececec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+}

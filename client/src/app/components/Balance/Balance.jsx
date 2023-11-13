@@ -1,20 +1,19 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addMoneyInBalance, getBalance } from "../../store/balanceSlice";
+import { useSelector } from "react-redux";
+import { getIncomeList } from "../../store/incomeSlice";
 
 const Balance = (props) => {
-  const dispatch = useDispatch();
-  const currentBalance = useSelector(getBalance());
-
-  const handleButton = (money) => {
-    dispatch(addMoneyInBalance(money));
-  };
+  const currentBalance = useSelector(getIncomeList());
+  const sumBalance = currentBalance.reduce(
+    (total, obj) => total + +obj.number,
+    0,
+  );
 
   return (
     <div className="custom-block custom-block-balance">
       <small>Твой Баланс</small>
 
-      <h2 className="mt-2 mb-3">{currentBalance} ₽</h2>
+      <h2 className="mt-2 mb-3">{sumBalance} ₽</h2>
 
       <div className="custom-block-numbers d-flex align-items-center">
         <p>Тинькоф</p>
@@ -26,8 +25,6 @@ const Balance = (props) => {
           <p>Thomas</p>
         </div>
       </div>
-
-      <button onClick={() => handleButton(100)}>knopka</button>
     </div>
   );
 };

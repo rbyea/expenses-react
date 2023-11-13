@@ -20,7 +20,6 @@ const UsersSlider = (props) => {
   React.useEffect(() => {
     const newArray = usersList?.filter((user) => user._id !== userId);
     setUsers(newArray);
-    console.log(users);
   }, [usersList]);
 
   return (
@@ -37,7 +36,7 @@ const UsersSlider = (props) => {
           users.map((user) => (
             <SwiperSlide key={user._id}>
               <div className={styles.swiperWrapperItem}>
-                <a href="#" className={styles.customUsersCircle}>
+                <a href="#" title={user.name} className={styles.customUsersCircle}>
                   {Array.from(user.name)[0]}
                 </a>
               </div>

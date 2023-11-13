@@ -138,5 +138,6 @@ export const getCurrentUser = (id) => (state) => {
 
 export const getIsLoggedIn = () => (state) => state.users.auth;
 export const getUsersList = () => (state) => state.users.entities;
+export const getLoadingUsers = () => (state) => state.users.isLoading;
 
 export default usersReducer;
