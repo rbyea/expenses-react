@@ -3,6 +3,7 @@ import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { getExpensesList } from "../../store/expensesSlice";
 import { getIncomeList } from "../../store/incomeSlice";
+import Preloader from "../../ui/Preloader/Preloader";
 
 const CircleCharts = (props) => {
   const expensesArray = useSelector(getExpensesList());
@@ -13,15 +14,20 @@ const CircleCharts = (props) => {
     0
   );
 
-  const incBalance = incomeArray?.reduce((total, obj) => total + +obj.number, 0);
+  const incBalance = incomeArray?.reduce(
+    (total, obj) => total + +obj.number,
+    0
+  );
 
-  const currentDate = new Date();
-  const isEndOfMonth = currentDate.getDate() === 1;
+  // const currentDate = new Date();
+  // const isEndOfMonth = currentDate.getDate() === 1;
 
-  console.log("isEndOfMonth: ", isEndOfMonth);
+  if (!incBalance && !expBalance) {
+    return <Preloader />;
+  }
 
   const state = {
-    series: [incBalance, expBalance],
+    series: [incBalance || 0, expBalance || 0],
     chart: {
       width: 380,
       type: "pie"

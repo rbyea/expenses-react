@@ -1,22 +1,74 @@
 import React from "react";
 import Chart from "react-apexcharts";
-// import { useSelector } from "react-redux";
-// import { getExpensesList } from "../../store/expensesSlice";
-// import { getIncomeList } from "../../store/incomeSlice";
+import { useSelector } from "react-redux";
+import { getExpensesList } from "../../store/expensesSlice";
+import { getIncomeList } from "../../store/incomeSlice";
+import Preloader from "../../ui/Preloader/Preloader";
 
 const TableChart = (props) => {
-  // const expensesArray = useSelector(getExpensesList());
-  // const incomeArray = useSelector(getIncomeList());
+  const monthNames = [
+    "Янв",
+    "Фев",
+    "Мар",
+    "Апр",
+    "Май",
+    "Июн",
+    "Июл",
+    "Авг",
+    "Сен",
+    "Окт",
+    "Ноя",
+    "Дек"
+  ];
+
+  const expensesArray = useSelector(getExpensesList());
+  const incomeArray = useSelector(getIncomeList());
+
+  const monthlyExpenses = {};
+  const monthlyIncome = {};
+
+  const sortArray = (array, monthlyArray) => {
+    array.forEach((item) => {
+      const date = new Date(item.created_at);
+      const month = date.getMonth() + 1;
+      const sum = parseFloat(item.number);
+
+      monthlyArray[month] = (monthlyArray[month] || 0) + sum;
+    });
+  };
+
+  if (expensesArray && incomeArray) {
+    sortArray(expensesArray, monthlyExpenses);
+    sortArray(incomeArray, monthlyIncome);
+  }
+
+  const allMonths = new Set([
+    ...Object.keys(monthlyExpenses),
+    ...Object.keys(monthlyIncome)
+  ]);
+
+  allMonths.forEach((month) => {
+    monthlyExpenses[month] = monthlyExpenses[month] || 0;
+    monthlyIncome[month] = monthlyIncome[month] || 0;
+  });
+
+  const selectedMonthNames = Object.keys(monthlyExpenses).map(
+    (month) => monthNames[month - 1]
+  );
+
+  if (!selectedMonthNames) {
+    return <Preloader />;
+  }
 
   const options = {
     series: [
       {
-        name: "Баланс1",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+        name: "Доходы",
+        data: Object.values(monthlyIncome)
       },
       {
         name: "Расходы",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+        data: Object.values(monthlyExpenses)
       }
     ],
     chart: {
@@ -39,17 +91,7 @@ const TableChart = (props) => {
       colors: ["transparent"]
     },
     xaxis: {
-      categories: [
-        "Фев",
-        "Мар",
-        "Апр",
-        "Май",
-        "Июн",
-        "Июл",
-        "Авг",
-        "Сен",
-        "Окт"
-      ]
+      categories: selectedMonthNames
     },
     yaxis: {
       title: {
@@ -68,14 +110,7 @@ const TableChart = (props) => {
     }
   };
   return (
-    <>
-      <Chart
-        options={options}
-        series={options.series}
-        type="bar"
-        height={350}
-      />
-    </>
+    <Chart options={options} series={options.series} type="bar" height={350} />
   );
 };
 

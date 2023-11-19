@@ -12,10 +12,6 @@ const TableBody = (props) => {
     (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
   );
 
-  React.useEffect(() => {
-    console.log("corArray: ", corArray);
-  }, [globalArray]);
-
   return (
     <tbody>
       {corArray &&
