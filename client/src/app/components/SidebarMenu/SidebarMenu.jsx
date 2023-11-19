@@ -7,24 +7,24 @@ import { FaHome, FaWallet, FaUserCog, FaSignOutAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { LogOut, getIsLoggedIn } from "../../store/usersSlice";
 import PopupWallet from "../../ui/Popup/PopupWallet";
+import { closePopup, getStatusPopup, openPopup } from "../../store/popupSlice";
 
 const SidebarMenu = (props) => {
+  const statusPopup = useSelector(getStatusPopup());
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const popupRef = useRef();
 
   const isLoggedIn = useSelector(getIsLoggedIn());
 
-  const [close, setClose] = React.useState(false);
-
   const handleClose = (e) => {
     const { target } = e;
     console.log("target: ", target.className);
 
     if (target.className.includes("popupWallet_popupDefault__g6tLy")) {
-      setClose(!close);
+      dispatch(closePopup());
     } else if (target.className.includes("popupWallet_popupClose__zrmvO")) {
-      setClose(!close);
+      dispatch(closePopup());
     }
   };
 
@@ -35,7 +35,7 @@ const SidebarMenu = (props) => {
 
   const handlePopup = (e) => {
     e.preventDefault();
-    setClose(true);
+    dispatch(openPopup());
   };
 
   const listMenu = [
@@ -64,12 +64,12 @@ const SidebarMenu = (props) => {
       <PopupWallet
         popupRef={popupRef}
         handleClose={handleClose}
-        close={close}
+        close={statusPopup}
       />
       <nav
         id="sidebarMenu"
         className={`col-md-3 col-lg-3 d-md-block sidebar collapse ${
-          close ? "popup-open" : ""
+          statusPopup === true ? "popup-open" : ""
         }`}
       >
         <div className="position-sticky py-4 px-3 sidebar-sticky">

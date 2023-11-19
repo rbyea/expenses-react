@@ -9,6 +9,7 @@ import InputField from "../Form/InputField";
 import { totalBalance } from "../../utils/totalBalance";
 import { getIncomeList } from "../../store/incomeSlice";
 import history from "../../utils/history";
+import { closePopup } from "../../store/popupSlice";
 
 const Expenses = (props) => {
   const incomeBalance = useSelector(getIncomeList());
@@ -82,6 +83,7 @@ const Expenses = (props) => {
 
     dispatch(createExpenses(data));
     history.push(`/history/${currentUser}`);
+    dispatch(closePopup());
   };
   return (
     <>
