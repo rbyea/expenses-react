@@ -11,7 +11,7 @@ const RegistrationForm = (props) => {
     name: "",
     email: "",
     password: "",
-    phone: "",
+    phone: ""
   });
 
   const [error, setError] = React.useState({});
@@ -19,7 +19,7 @@ const RegistrationForm = (props) => {
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
-      [target.name]: target.value,
+      [target.name]: target.value
     }));
   };
 
@@ -28,34 +28,34 @@ const RegistrationForm = (props) => {
       name: "",
       email: "",
       password: "",
-      phone: "",
+      phone: ""
     });
   };
 
   const validatorConfig = {
     email: {
       isRequired: {
-        message: "Электронная почта обязательна для заполнения!",
+        message: "Электронная почта обязательна для заполнения!"
       },
       isEmail: {
-        message: "Почта введена некорректно",
-      },
+        message: "Почта введена некорректно"
+      }
     },
     password: {
       isRequired: {
-        message: "Пароль обязателен для заполнения!",
-      },
+        message: "Пароль обязателен для заполнения!"
+      }
     },
     name: {
       isRequired: {
-        message: "Поле обязателено для заполнения!",
-      },
+        message: "Поле обязателено для заполнения!"
+      }
     },
     phone: {
       isRequired: {
-        message: "Поле обязателено для заполнения!",
-      },
-    },
+        message: "Поле обязателено для заполнения!"
+      }
+    }
   };
 
   const validate = () => {

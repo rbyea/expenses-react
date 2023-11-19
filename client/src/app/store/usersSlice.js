@@ -11,14 +11,14 @@ const initialState = localStorageService.getTokenKey()
       isLoading: true,
       error: null,
       auth: { userId: localStorageService.getLocalIdKey() },
-      dataLoader: false,
+      dataLoader: false
     }
   : {
       entities: null,
       isLoading: false,
       error: null,
       auth: null,
-      dataLoader: false,
+      dataLoader: false
     };
 
 const usersSlice = createSlice({
@@ -53,8 +53,8 @@ const usersSlice = createSlice({
     authRequestFailed: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
-    },
-  },
+    }
+  }
 });
 
 const { actions, reducer: usersReducer } = usersSlice;
@@ -64,7 +64,7 @@ const {
   usersGetFailed,
   userLogOut,
   authRequestFailed,
-  authRequestSuccess,
+  authRequestSuccess
 } = actions;
 
 const authRequested = createAction("users/authRequested");

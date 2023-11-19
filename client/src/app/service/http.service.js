@@ -4,7 +4,7 @@ import localStorageService from "./localStorage.service";
 import authService from "./auth.service";
 
 const http = axios.create({
-  baseURL: configFire.apiEndPoint,
+  baseURL: configFire.apiEndPoint
 });
 
 http.interceptors.request.use(
@@ -25,7 +25,7 @@ http.interceptors.request.use(
           refreshToken: data.refresh_token,
           idToken: data.id_token,
           localId: data.user_id,
-          expiresIn: data.expires_in,
+          expiresIn: data.expires_in
         });
       }
       const accessToken = localStorageService.getTokenKey();
@@ -41,7 +41,7 @@ http.interceptors.request.use(
       if (accessToken) {
         config.headers = {
           ...config.headers,
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`
         };
       }
     }
@@ -49,13 +49,13 @@ http.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  },
+  }
 );
 
 function transformData(data) {
   return data && !data._id
     ? Object.keys(data).map((key) => ({
-        ...data[key],
+        ...data[key]
       }))
     : data;
 }
@@ -77,7 +77,7 @@ http.interceptors.response.use(
       console.log(error);
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 const httpService = {
@@ -85,7 +85,7 @@ const httpService = {
   post: http.post,
   put: http.put,
   delete: http.delete,
-  patch: http.patch,
+  patch: http.patch
 };
 
 export default httpService;

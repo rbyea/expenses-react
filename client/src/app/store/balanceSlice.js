@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   entities: 0,
   isLoading: false,
-  error: null,
+  error: null
 };
 
 const balanceSlice = createSlice({
@@ -20,8 +20,8 @@ const balanceSlice = createSlice({
     balanceAdd: (state, action) => {
       state.entities += action.payload;
       state.isLoading = false;
-    },
-  },
+    }
+  }
 });
 
 const { actions, reducer: balanceReducer } = balanceSlice;

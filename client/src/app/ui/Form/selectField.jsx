@@ -49,7 +49,7 @@ SelectField.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
-  options: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  options: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
 
 export default SelectField;

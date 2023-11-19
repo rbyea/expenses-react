@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import CardImage from "./credit-card.png";
 import { Link, useLocation } from "react-router-dom";
 import { nanoid } from "nanoid";
@@ -11,12 +11,21 @@ import PopupWallet from "../../ui/Popup/PopupWallet";
 const SidebarMenu = (props) => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const popupRef = useRef();
+
   const isLoggedIn = useSelector(getIsLoggedIn());
 
   const [close, setClose] = React.useState(false);
 
-  const handleClose = () => {
-    setClose(!close);
+  const handleClose = (e) => {
+    const { target } = e;
+    console.log("target: ", target.className);
+
+    if (target.className.includes("popupWallet_popupDefault__g6tLy")) {
+      setClose(!close);
+    } else if (target.className.includes("popupWallet_popupClose__zrmvO")) {
+      setClose(!close);
+    }
   };
 
   const handleButton = (e) => {
@@ -34,28 +43,34 @@ const SidebarMenu = (props) => {
       _id: nanoid(),
       name: "Главная",
       icon: <FaHome className="me-2" />,
-      link: `/${isLoggedIn ? isLoggedIn.userId : ""}`,
+      link: `/${isLoggedIn ? isLoggedIn.userId : ""}`
     },
     {
       _id: nanoid(),
       name: "Кошелек",
       icon: <FaWallet className="me-2" />,
-      link: `/history/${isLoggedIn ? isLoggedIn.userId : ""}`,
+      link: `/history/${isLoggedIn ? isLoggedIn.userId : ""}`
     },
     {
       _id: nanoid(),
       name: "Настройки",
       icon: <FaUserCog className="me-2" />,
-      link: `/settings/${isLoggedIn ? isLoggedIn.userId : ""}`,
-    },
+      link: `/settings/${isLoggedIn ? isLoggedIn.userId : ""}`
+    }
   ];
 
   return (
     <>
-      <PopupWallet handleClose={handleClose} close={close} />
+      <PopupWallet
+        popupRef={popupRef}
+        handleClose={handleClose}
+        close={close}
+      />
       <nav
         id="sidebarMenu"
-        className="col-md-3 col-lg-3 d-md-block sidebar collapse"
+        className={`col-md-3 col-lg-3 d-md-block sidebar collapse ${
+          close ? "popup-open" : ""
+        }`}
       >
         <div className="position-sticky py-4 px-3 sidebar-sticky">
           <ul className="nav flex-column h-100">

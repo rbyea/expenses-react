@@ -4,7 +4,7 @@ import incomeService from "../service/income.service";
 const initialState = {
   entities: [],
   isLoading: true,
-  error: null,
+  error: null
 };
 
 const incomeSlice = createSlice({
@@ -26,8 +26,8 @@ const incomeSlice = createSlice({
     incomeCreatedReceived: (state, action) => {
       state.entities.push(action.payload);
       state.isLoading = false;
-    },
-  },
+    }
+  }
 });
 
 const { actions, reducer: incomeReducer } = incomeSlice;
@@ -36,7 +36,7 @@ const {
   incomeRequested,
   incomeReceived,
   incomeRequestFailed,
-  incomeCreatedReceived,
+  incomeCreatedReceived
 } = actions;
 
 export const loadIncomeList = (userId) => async (dispatch) => {

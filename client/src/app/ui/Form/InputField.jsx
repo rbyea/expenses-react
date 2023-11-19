@@ -28,7 +28,7 @@ InputField.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.string
 };
 
 export default InputField;

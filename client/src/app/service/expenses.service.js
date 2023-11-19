@@ -1,9 +1,9 @@
 import httpService from "./http.service";
-const incomeEndpoint = "income/";
+const expensesEndpoint = "expenses/";
 
-const incomeService = {
+const expensesService = {
   get: async (userId) => {
-    const { data } = await httpService.get(incomeEndpoint, {
+    const { data } = await httpService.get(expensesEndpoint, {
       params: {
         orderBy: "userId",
         equalTo: `${userId}`
@@ -12,9 +12,9 @@ const incomeService = {
     return data;
   },
   create: async (payload) => {
-    const { data } = await httpService.post(incomeEndpoint, payload);
+    const { data } = await httpService.post(expensesEndpoint, payload);
     return data;
   }
 };
 
-export default incomeService;
+export default expensesService;

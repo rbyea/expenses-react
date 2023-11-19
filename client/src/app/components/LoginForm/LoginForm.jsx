@@ -8,24 +8,24 @@ const LoginForm = (props) => {
   const dispatch = useDispatch();
   const [data, setData] = React.useState({
     email: "",
-    password: "",
+    password: ""
   });
   const [error, setError] = React.useState({});
 
   const validatorConfig = {
     email: {
       isRequired: {
-        message: "Электронная почта обязательна для заполнения!",
+        message: "Электронная почта обязательна для заполнения!"
       },
       isEmail: {
-        message: "Почта введена некорректно",
-      },
+        message: "Почта введена некорректно"
+      }
     },
     password: {
       isRequired: {
-        message: "Пароль обязателен для заполнения!",
-      },
-    },
+        message: "Пароль обязателен для заполнения!"
+      }
+    }
   };
 
   const validate = () => {
@@ -39,14 +39,14 @@ const LoginForm = (props) => {
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
-      [target.name]: target.value,
+      [target.name]: target.value
     }));
   };
 
   const handleReset = () => {
     setData(() => ({
       email: "",
-      password: "",
+      password: ""
     }));
   };
 

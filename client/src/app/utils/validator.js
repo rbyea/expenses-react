@@ -46,7 +46,7 @@ export function validator(data, config) {
       const error = validate(
         validateMethod,
         data[fieldName],
-        config[fieldName][validateMethod],
+        config[fieldName][validateMethod]
       );
       if (error && !errors[fieldName]) {
         errors[fieldName] = error;

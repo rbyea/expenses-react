@@ -1,13 +1,13 @@
 const express = require("express");
-const Income = require("../models/Income");
+const Expenses = require("../models/Expenses");
 const auth = require("../middleware/auth.middleware");
 const router = express.Router({ mergeParams: true });
 
 router
-  .get("/", auth, async (req, res) => {
+  .get("/", async (req, res) => {
     try {
       const { orderBy, equalTo } = req.query;
-      const list = await Income.find({ [orderBy]: equalTo });
+      const list = await Expenses.find({ [orderBy]: equalTo });
       res.send(list);
     } catch (error) {
       res.status(500).json({
@@ -17,7 +17,7 @@ router
   })
   .post("/", auth, async (req, res) => {
     try {
-      const newItem = await Income.create({
+      const newItem = await Expenses.create({
         ...req.body,
         userId: req.user._id,
       });

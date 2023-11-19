@@ -12,7 +12,7 @@ const ProfileBlock = (props) => {
 
   const stylesBlock = {
     position: "relative",
-    minHeight: "293px",
+    minHeight: "293px"
   };
 
   return (

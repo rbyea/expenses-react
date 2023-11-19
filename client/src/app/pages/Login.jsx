@@ -4,7 +4,7 @@ import RegistrationForm from "../components/RegistrationForm/RegistrationForm";
 import {
   Link,
   useLocation,
-  useParams,
+  useParams
 } from "react-router-dom/cjs/react-router-dom.min";
 import { nanoid } from "nanoid";
 
@@ -14,14 +14,12 @@ const Login = () => {
 
   const navTab = [
     { _id: nanoid(), name: "Войти", link: "/login" },
-    { _id: nanoid(), name: "Регистрация", link: "/login/register" },
+    { _id: nanoid(), name: "Регистрация", link: "/login/register" }
   ];
 
   return (
     <div className="row my-4">
-      <h2 className="h2-login">
-        Авторизуйтесь для доступа к приложению
-      </h2>
+      <h2 className="h2-login">Авторизуйтесь для доступа к приложению</h2>
       <div className="col-lg-12 col-12">
         <div className="custom-block bg-white">
           <ul className="nav nav-tabs">

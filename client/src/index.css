@@ -17942,14 +17942,18 @@ strong {
 
 .form-col .error-form {
   position: absolute;
-  bottom: -18px;
-  left: 21px;
+  bottom: -20px;
+  left: 0;
   font-size: 12px;
   color: red;
 }
 
 .h2-login {
   text-align: center;
+}
+
+.is-invalid ~ label {
+  color: #dc3545;
 }
 
 .nav-link-circle {
@@ -17964,4 +17968,8 @@ strong {
 
 .form-group label {
   margin-bottom: 5px;
+}
+
+.popup-open {
+  pointer-events: none;
 }

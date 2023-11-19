@@ -26,7 +26,7 @@ const UsersSlider = (props) => {
     <>
       <Swiper
         pagination={{
-          type: "fraction",
+          type: "fraction"
         }}
         slidesPerView={6.5}
         spaceBetween={10}
@@ -36,7 +36,11 @@ const UsersSlider = (props) => {
           users.map((user) => (
             <SwiperSlide key={user._id}>
               <div className={styles.swiperWrapperItem}>
-                <a href="#" title={user.name} className={styles.customUsersCircle}>
+                <a
+                  href="#"
+                  title={user.name}
+                  className={styles.customUsersCircle}
+                >
                   {Array.from(user.name)[0]}
                 </a>
               </div>
