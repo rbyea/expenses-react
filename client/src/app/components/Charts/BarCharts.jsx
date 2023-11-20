@@ -1,11 +1,36 @@
 import React from "react";
 import Chart from "react-apexcharts";
+import { useSelector } from "react-redux";
+import { getCategories } from "../../store/categoriesSlice";
+import { getExpensesList } from "../../store/expensesSlice";
 
-const BarCharts = (props) => {
+const BarCharts = () => {
+  const expensesList = useSelector(getExpensesList());
+  const categoriesList = useSelector(getCategories());
+
+  const categoryExpenses = expensesList?.reduce((acc, expense) => {
+    const category = categoriesList.find(
+      (category) => category._id === expense.category
+    );
+    const categoryName = category ? category.label : "категория не найдена";
+    const expenseNumber = Number(expense.number);
+
+    if (acc[categoryName]) {
+      acc[categoryName] += expenseNumber;
+    } else {
+      acc[categoryName] = expenseNumber;
+    }
+
+    return acc;
+  }, {});
+
+  const categoryNames = Object.keys(categoryExpenses);
+  const categorySums = Object.values(categoryExpenses);
+
   const options = {
     series: [
       {
-        data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+        data: categorySums
       }
     ],
     options: {
@@ -23,18 +48,7 @@ const BarCharts = (props) => {
         enabled: false
       },
       xaxis: {
-        categories: [
-          "South Korea",
-          "Canada",
-          "United Kingdom",
-          "Netherlands",
-          "Italy",
-          "France",
-          "Japan",
-          "United States",
-          "China",
-          "Germany"
-        ]
+        categories: categoryNames
       }
     }
   };

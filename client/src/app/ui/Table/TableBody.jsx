@@ -2,12 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getExpensesList } from "../../store/expensesSlice";
 import { getIncomeList } from "../../store/incomeSlice";
+import { getCategories } from "../../store/categoriesSlice";
 
-const TableBody = (props) => {
+const TableBody = () => {
   const expensesList = useSelector(getExpensesList());
   const incomeList = useSelector(getIncomeList());
-
-  const globalArray = [...expensesList, ...incomeList];
+  const categoriesList = useSelector(getCategories());
+  const globalArray = [...(expensesList || []), ...(incomeList || [])];
   const corArray = globalArray?.sort(
     (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
   );
@@ -26,7 +27,12 @@ const TableBody = (props) => {
             </td>
             <td scope="row">{el.description}</td>
             <td scope="row">{el.type}</td>
-            <td scope="row">{el.category || ""}</td>
+            <td scope="row">
+              {
+                categoriesList?.find((category) => category._id === el.category)
+                  ?.label
+              }
+            </td>
             <td
               className={el.type === "расход" ? "text-danger" : "text-success"}
               scope="row"

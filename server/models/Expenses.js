@@ -6,7 +6,7 @@ const schema = new Schema(
     type: { type: String },
     number: { type: String },
     description: { type: String },
-    category: { type: String },
+    category: { type: Schema.Types.ObjectId, ref: "Categories" },
   },
   {
     timestamps: { createdAt: "created_at" },

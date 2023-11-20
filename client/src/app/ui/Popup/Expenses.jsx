@@ -10,8 +10,10 @@ import { totalBalance } from "../../utils/totalBalance";
 import { getIncomeList } from "../../store/incomeSlice";
 import history from "../../utils/history";
 import { closePopup } from "../../store/popupSlice";
+import { getCategories } from "../../store/categoriesSlice";
 
 const Expenses = (props) => {
+  const categoriesList = useSelector(getCategories());
   const incomeBalance = useSelector(getIncomeList());
   const expensesBalance = useSelector(getExpensesList());
   const dispatch = useDispatch();
@@ -25,20 +27,11 @@ const Expenses = (props) => {
     userId: currentUser
   });
 
-  const categoryList = [
-    {
-      value: "dqwkndkjh123kj",
-      label: "Продукты"
-    },
-    {
-      value: "sadqwf123fqwf",
-      label: "Медецины"
-    },
-    {
-      value: "dqwkllqwkeh",
-      label: "Развлечения"
-    }
-  ];
+  const categories = categoriesList.map(({ _id: value, ...rest }) => ({
+    value,
+    ...rest
+  }));
+
   const validatorConfig = {
     type: {
       isRequired: {
@@ -98,7 +91,7 @@ const Expenses = (props) => {
               error={error.category}
               onChange={handleChange}
               value={data.category}
-              options={categoryList}
+              options={categories}
               name="category"
             />
           </div>

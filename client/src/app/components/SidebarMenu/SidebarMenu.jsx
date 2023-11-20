@@ -19,7 +19,6 @@ const SidebarMenu = (props) => {
 
   const handleClose = (e) => {
     const { target } = e;
-    console.log("target: ", target.className);
 
     if (target.className.includes("popupWallet_popupDefault__g6tLy")) {
       dispatch(closePopup());
