@@ -17973,3 +17973,9 @@ strong {
 .popup-open {
   pointer-events: none;
 }
+
+.transition-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}

@@ -9,18 +9,36 @@ const CircleCharts = (props) => {
   const expensesArray = useSelector(getExpensesList());
   const incomeArray = useSelector(getIncomeList());
 
-  const expBalance = expensesArray?.reduce(
+  const date = new Date();
+  const month = date.getMonth() + 1;
+
+  const expensesSortedArray = [];
+  const incomeSortedArray = [];
+
+  const sortArray = (array, newArray) => {
+    const result = array.filter((el) => {
+      const arrayDate = new Date(el.updatedAt);
+      const arrayMonth = arrayDate.getMonth() + 1;
+      return arrayMonth === month;
+    });
+
+    newArray.push(...result);
+  };
+
+  if (expensesArray && incomeArray) {
+    sortArray(expensesArray, expensesSortedArray);
+    sortArray(incomeArray, incomeSortedArray);
+  }
+
+  const expBalance = expensesSortedArray?.reduce(
     (total, obj) => total + +obj.number,
     0
   );
 
-  const incBalance = incomeArray?.reduce(
+  const incBalance = incomeSortedArray?.reduce(
     (total, obj) => total + +obj.number,
     0
   );
-
-  // const currentDate = new Date();
-  // const isEndOfMonth = currentDate.getDate() === 1;
 
   if (!incBalance && !expBalance) {
     return <Preloader />;
@@ -32,7 +50,7 @@ const CircleCharts = (props) => {
       width: 380,
       type: "pie"
     },
-    labels: ["Баланс", "Расходы"],
+    labels: ["Доходы", "Расходы"],
     responsive: [
       {
         breakpoint: 480,

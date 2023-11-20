@@ -29,7 +29,7 @@ const TableChart = (props) => {
 
   const sortArray = (array, monthlyArray) => {
     array.forEach((item) => {
-      const date = new Date(item.created_at);
+      const date = new Date(item.updatedAt);
       const month = date.getMonth() + 1;
       const sum = parseFloat(item.number);
 

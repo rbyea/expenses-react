@@ -6,6 +6,7 @@ import ProfileBlock from "../components/ProfileBlock/ProfileBlock";
 import Transations from "../components/Transations/Transations";
 import LastUsers from "../components/LastUsers/LastUsers";
 import Footer from "../components/Footer/Footer";
+import BarCharts from "../components/Charts/BarCharts";
 
 const Main = (props) => {
   return (
@@ -19,12 +20,18 @@ const Main = (props) => {
           <Balance />
 
           <div className="custom-block bg-white">
-            <h5 className="mb-4">История</h5>
+            <h5 className="mb-4">Общая история доходов и расходов</h5>
+            <TableChart />
+          </div>
+
+          <div className="custom-block bg-white">
+            <h5 className="mb-4">История текущего месяца</h5>
             <CircleCharts />
           </div>
 
           <div className="custom-block bg-white">
-            <TableChart />
+            <h5 className="mb-4">История затрат в текущем месяце</h5>
+            <BarCharts />
           </div>
         </div>
 
