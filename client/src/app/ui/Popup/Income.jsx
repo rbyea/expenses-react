@@ -5,7 +5,6 @@ import { getCurrentUserId } from "../../store/usersSlice";
 import { createIncome } from "../../store/incomeSlice";
 import styles from "./popupWallet.module.css";
 import { validator } from "../../utils/validator";
-import history from "../../utils/history";
 import { closePopup } from "../../store/popupSlice";
 
 const Income = (props) => {
@@ -56,7 +55,6 @@ const Income = (props) => {
 
     if (!isValid) return;
     dispatch(createIncome(data));
-    history.push(`/history/${currentUser}`);
     dispatch(closePopup());
   };
 

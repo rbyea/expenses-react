@@ -1,7 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SelectField = ({ label, name, value, onChange, options, error }) => {
+const SelectField = ({
+  label,
+  name,
+  value,
+  onChange,
+  options,
+  error,
+  chart
+}) => {
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value });
   };
@@ -33,7 +41,11 @@ const SelectField = ({ label, name, value, onChange, options, error }) => {
         </option>
         {optionsArray.length > 0 &&
           optionsArray.map((obj) => (
-            <option name={obj.label} key={obj.value} value={obj.value}>
+            <option
+              name={obj.label}
+              key={obj.value}
+              value={chart === true ? obj.label : obj.value}
+            >
               {obj.label}
             </option>
           ))}
@@ -49,6 +61,7 @@ SelectField.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  chart: PropTypes.bool,
   options: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
 

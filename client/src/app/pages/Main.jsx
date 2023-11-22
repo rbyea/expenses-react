@@ -30,7 +30,7 @@ const Main = (props) => {
           </div>
 
           <div className="custom-block bg-white">
-            <h5 className="mb-4">История затрат в текущем месяце</h5>
+            <h5 className="mb-4">История затрат выбранной даты</h5>
             <BarCharts />
           </div>
         </div>

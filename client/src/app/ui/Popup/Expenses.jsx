@@ -8,7 +8,6 @@ import SelectField from "../Form/selectField";
 import InputField from "../Form/InputField";
 import { totalBalance } from "../../utils/totalBalance";
 import { getIncomeList } from "../../store/incomeSlice";
-import history from "../../utils/history";
 import { closePopup } from "../../store/popupSlice";
 import { getCategories } from "../../store/categoriesSlice";
 
@@ -75,7 +74,6 @@ const Expenses = (props) => {
     if (!isValid) return;
 
     dispatch(createExpenses(data));
-    history.push(`/history/${currentUser}`);
     dispatch(closePopup());
   };
   return (
