@@ -18008,3 +18008,7 @@ strong {
 .catalog-desc-block:last-child {
   margin-bottom: 0px;
 }
+
+.account-table tr td:nth-child(3) {
+  width: 190px;
+}

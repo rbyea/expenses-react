@@ -27,6 +27,29 @@ router
         message: "На сервере произошла ошибка. Попробуйте позже",
       });
     }
+  })
+  .put("/", auth, async (req, res) => {
+    try {
+      const updateExpense = await Expenses.findOneAndReplace(
+        {
+          _id: req.body._id,
+        },
+        {
+          number: req.body.number,
+          description: req.body.description,
+          category: req.body.category,
+          type: req.body.type,
+          userId: req.user._id,
+        }
+      );
+
+      res.send(updateExpense);
+    } catch (error) {
+      res.status(500).json({
+        message: "На сервере произошла ошибка. Попробуйте позже",
+        error: error.message,
+      });
+    }
   });
 
 module.exports = router;

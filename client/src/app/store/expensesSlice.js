@@ -26,6 +26,13 @@ const expensesSlice = createSlice({
     expensesCreatedReceived: (state, action) => {
       state.entities.push(action.payload);
       state.isLoading = false;
+    },
+    expensesUpdateItem: (state, action) => {
+      console.log("action.payload", action.payload);
+      state.entities[
+        state.entities.findIndex((ex) => ex._id === action.payload._id)
+      ] = action.payload;
+      state.isLoading = false;
     }
   }
 });
@@ -36,7 +43,8 @@ const {
   expensesReceived,
   expensesRequested,
   expensesRequestFailed,
-  expensesCreatedReceived
+  expensesCreatedReceived,
+  expensesUpdateItem
 } = actions;
 
 export const loadingExpenses = (userId) => async (dispatch) => {
@@ -54,6 +62,16 @@ export const createExpenses = (payload) => async (dispatch) => {
   try {
     const { content } = await expensesService.create(payload);
     dispatch(expensesCreatedReceived(content));
+  } catch (error) {
+    dispatch(expensesRequestFailed(error.message));
+  }
+};
+
+export const updateExpenses = (payload) => async (dispatch) => {
+  dispatch(expensesRequested());
+  try {
+    const { content } = await expensesService.update(payload);
+    dispatch(expensesUpdateItem(content));
   } catch (error) {
     dispatch(expensesRequestFailed(error.message));
   }

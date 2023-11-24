@@ -14,6 +14,10 @@ const expensesService = {
   create: async (payload) => {
     const { data } = await httpService.post(expensesEndpoint, payload);
     return data;
+  },
+  update: async (payload) => {
+    const { data } = await httpService.put(expensesEndpoint, payload);
+    return data;
   }
 };
 
