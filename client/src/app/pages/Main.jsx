@@ -20,7 +20,9 @@ const Main = (props) => {
           <Balance />
 
           <div className="custom-block bg-white">
-            <h5 className="mb-4">Общая история доходов и расходов</h5>
+            <h5 className="mb-4">
+              Общая история доходов и расходов текущего года
+            </h5>
             <TableChart />
           </div>
 

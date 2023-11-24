@@ -5,6 +5,7 @@ import { getCategories } from "../../store/categoriesSlice";
 import { getExpensesList } from "../../store/expensesSlice";
 import SelectField from "../../ui/Form/selectField";
 import moment from "moment";
+import { nanoid } from "@reduxjs/toolkit";
 
 const BarCharts = () => {
   const expensesList = useSelector(getExpensesList());
@@ -51,8 +52,6 @@ const BarCharts = () => {
       });
       setNewDataArray(resultFilter);
     }
-
-    console.log(newDataArray);
   }, [dataSort, expensesList]);
 
   const categoryExpenses = newDataArray?.reduce((acc, expense) => {
@@ -71,6 +70,32 @@ const BarCharts = () => {
     return acc;
   }, {});
 
+  const categoriesMap = categoriesList?.reduce((acc, category) => {
+    acc[category._id] = category.label;
+    return acc;
+  }, {});
+
+  const groupedDescriptions = newDataArray?.reduce((acc, expense) => {
+    const categoryName =
+      categoriesMap[expense.category] || "Категория не найдена";
+
+    if (!acc[categoryName]) {
+      acc[categoryName] = [expense.description];
+    } else {
+      acc[categoryName].push(expense.description);
+    }
+    return acc;
+  }, {});
+
+  const catalogDescriptionArray = groupedDescriptions
+    ? Object.entries(groupedDescriptions).map(([category, descriptions]) => ({
+        category,
+        descriptions
+      }))
+    : [];
+
+  console.log(catalogDescriptionArray);
+
   const handleChange = (target) => {
     setData((pervState) => ({
       ...pervState,
@@ -84,13 +109,19 @@ const BarCharts = () => {
   const options = {
     series: [
       {
-        data: categorySums || 0
+        data: categorySums || [],
+        name: "Расход"
       }
     ],
     options: {
       chart: {
         type: "bar",
-        height: 350
+        height: 350,
+        events: {
+          dataPointSelection: function (event, chartContext, config) {
+            console.log(config.w.config.series[0]);
+          }
+        }
       },
       plotOptions: {
         bar: {
@@ -128,6 +159,18 @@ const BarCharts = () => {
           height={350}
         />
       )}
+
+      {catalogDescriptionArray &&
+        catalogDescriptionArray.map((el) => (
+          <div className="catalog-desc-list" key={nanoid()}>
+            <strong>{el.category}:</strong>
+            <div className="catalog-desc-item">
+              {el.descriptions.map((description) => (
+                <div className="catalog-desc-block" key={nanoid()}>{description}</div>
+              ))}
+            </div>
+          </div>
+        ))}
     </>
   );
 };
