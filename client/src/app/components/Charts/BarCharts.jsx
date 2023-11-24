@@ -94,8 +94,6 @@ const BarCharts = () => {
       }))
     : [];
 
-  console.log(catalogDescriptionArray);
-
   const handleChange = (target) => {
     setData((pervState) => ({
       ...pervState,
@@ -166,7 +164,9 @@ const BarCharts = () => {
             <strong>{el.category}:</strong>
             <div className="catalog-desc-item">
               {el.descriptions.map((description) => (
-                <div className="catalog-desc-block" key={nanoid()}>{description}</div>
+                <div className="catalog-desc-block" key={nanoid()}>
+                  {description}
+                </div>
               ))}
             </div>
           </div>

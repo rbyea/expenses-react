@@ -11,6 +11,7 @@ const CircleCharts = (props) => {
 
   const date = new Date();
   const month = date.getMonth() + 1;
+  const year = date.getFullYear();
 
   const expensesSortedArray = [];
   const incomeSortedArray = [];
@@ -19,7 +20,9 @@ const CircleCharts = (props) => {
     const result = array.filter((el) => {
       const arrayDate = new Date(el.updatedAt);
       const arrayMonth = arrayDate.getMonth() + 1;
-      return arrayMonth === month;
+      const dateYear = arrayDate.getFullYear();
+
+      return arrayMonth === month && dateYear === year;
     });
 
     newArray.push(...result);
