@@ -1,47 +1,34 @@
 import React from "react";
+import PropTypes from "prop-types";
+import _ from "lodash";
 
-const Pagination = (props) => {
+const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
+  const pageCount = Math.ceil(itemsCount / pageSize);
+  if (pageCount === 1) return null;
+  const pages = _.range(1, pageCount + 1);
   return (
     <nav aria-label="Page navigation example">
       <ul className="pagination justify-content-center mb-0">
-        <li className="page-item">
-          <a className="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">Prev</span>
-          </a>
-        </li>
-
-        <li className="page-item active" aria-current="page">
-          <a className="page-link" href="#">
-            1
-          </a>
-        </li>
-
-        <li className="page-item">
-          <a className="page-link" href="#">
-            2
-          </a>
-        </li>
-
-        <li className="page-item">
-          <a className="page-link" href="#">
-            3
-          </a>
-        </li>
-
-        <li className="page-item">
-          <a className="page-link" href="#">
-            4
-          </a>
-        </li>
-
-        <li className="page-item">
-          <a className="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">Next</span>
-          </a>
-        </li>
+        {pages.map((page) => (
+          <li
+            className={"page-item" + (page === currentPage ? " active" : "")}
+            key={"page_" + page}
+          >
+            <button className="page-link" onClick={() => onPageChange(page)}>
+              {page}
+            </button>
+          </li>
+        ))}
       </ul>
     </nav>
   );
+};
+
+Pagination.propTypes = {
+  itemsCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired
 };
 
 export default Pagination;

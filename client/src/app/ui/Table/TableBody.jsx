@@ -1,20 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getExpensesList } from "../../store/expensesSlice";
-import { getIncomeList } from "../../store/incomeSlice";
 import { getCategories } from "../../store/categoriesSlice";
 import { openPopupEdit } from "../../store/popupSlice";
 import PropTypes from "prop-types";
-
-const TableBody = ({ setIdEvent, setType }) => {
+import { FaTimes } from "react-icons/fa";
+const TableBody = ({ itemsCrop, setIdEvent, setType, handleDelete }) => {
   const dispatch = useDispatch();
-  const expensesList = useSelector(getExpensesList());
-  const incomeList = useSelector(getIncomeList());
   const categoriesList = useSelector(getCategories());
-  const globalArray = [...(expensesList || []), ...(incomeList || [])];
-  const corArray = globalArray?.sort(
-    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-  );
 
   const handleButton = (e, id, type) => {
     e.preventDefault();
@@ -27,8 +19,8 @@ const TableBody = ({ setIdEvent, setType }) => {
   return (
     <>
       <tbody>
-        {corArray &&
-          corArray.map((el) => (
+        {itemsCrop &&
+          itemsCrop.map((el) => (
             <tr key={el._id || el.updatedAt}>
               <td scope="row">{new Date(el.updatedAt).toLocaleDateString()}</td>
               <td scope="row">
@@ -56,13 +48,21 @@ const TableBody = ({ setIdEvent, setType }) => {
                 {el.number}
               </td>
               <td scope="row">
-                <a
-                  className="btn custom-btn"
-                  onClick={(e) => handleButton(e, el._id, el.type)}
-                  href="#"
-                >
-                  Редактировать
-                </a>
+                <div className="table-row-center">
+                  <a
+                    className="btn custom-btn"
+                    onClick={(e) => handleButton(e, el._id, el.type)}
+                    href="#"
+                  >
+                    Редактировать
+                  </a>
+                  <button
+                    onClick={(e) => handleDelete(e, el._id, el.type)}
+                    className="close-item"
+                  >
+                    <FaTimes />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
@@ -73,7 +73,9 @@ const TableBody = ({ setIdEvent, setType }) => {
 
 TableBody.propTypes = {
   setIdEvent: PropTypes.func,
-  setType: PropTypes.func
+  setType: PropTypes.func,
+  itemsCrop: PropTypes.array,
+  handleDelete: PropTypes.func
 };
 
 export default TableBody;

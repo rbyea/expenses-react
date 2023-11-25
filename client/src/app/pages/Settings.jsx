@@ -1,11 +1,94 @@
 import React from "react";
 import Footer from "../components/Footer/Footer";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCurrentUser,
+  getUserError,
+  updateProfileUser
+} from "../store/usersSlice";
+import { validator } from "../utils/validator";
+import InputField from "../ui/Form/InputField";
+import { toast } from "react-toastify";
 
 const Settings = (props) => {
+  const dispatch = useDispatch();
+  const { userId } = useParams();
+  const currentUser = useSelector(getCurrentUser(userId));
+  const statusError = useSelector(getUserError());
+
+  console.log(statusError);
+
+  const [error, setError] = React.useState({});
+
+  console.log("error", error);
+
+  const [data, setData] = React.useState({
+    userId: currentUser?._id || userId || "",
+    name: currentUser?.name || "",
+    email: currentUser?.email || "",
+    phone: currentUser?.phone || ""
+  });
+
+  const validatorConfig = {
+    name: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
+      }
+    },
+    email: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
+      }
+    }
+  };
+
+  const validate = () => {
+    const errors = validator(data, validatorConfig);
+    setError(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleChange = (target) => {
+    setData((prevState) => ({
+      ...prevState,
+      [target.name]: target.value
+    }));
+  };
+
+  const onSubmitForm = (e) => {
+    e.preventDefault();
+
+    const isValid = validate();
+
+    if (!isValid) return;
+
+    try {
+      dispatch(updateProfileUser(data));
+      toast.success("Данные обновлены!", {
+        autoClose: 3000
+      });
+    } catch (error) {
+      toast.error("Произошла ошибка!", {
+        autoClose: 3000
+      });
+    }
+  };
+
+  const handleReset = (e) => {
+    e.preventDefault();
+
+    setData((prevState) => ({
+      ...prevState,
+      name: "",
+      email: "",
+      phone: ""
+    }));
+  };
   return (
     <main className="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start">
       <div className="title-group mb-3">
-        <h1 className="h2 mb-0">Settings</h1>
+        <h1 className="h2 mb-0">Настройки</h1>
       </div>
 
       <div className="row my-4">
@@ -13,84 +96,46 @@ const Settings = (props) => {
           <div className="custom-block bg-white">
             <ul className="nav nav-tabs" id="myTab" role="tablist">
               <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link active"
-                  id="profile-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#profile-tab-pane"
-                  type="button"
-                  role="tab"
-                  aria-controls="profile-tab-pane"
-                  aria-selected="true"
-                >
-                  Profile
-                </button>
-              </li>
-
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link"
-                  id="password-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#password-tab-pane"
-                  type="button"
-                  role="tab"
-                  aria-controls="password-tab-pane"
-                  aria-selected="false"
-                >
-                  Password
-                </button>
-              </li>
-
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link"
-                  id="notification-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#notification-tab-pane"
-                  type="button"
-                  role="tab"
-                  aria-controls="notification-tab-pane"
-                  aria-selected="false"
-                >
-                  Notification
-                </button>
+                <button className="nav-link active">Профиль</button>
               </li>
             </ul>
 
             <div className="tab-content" id="myTabContent">
-              <div
-                className="tab-pane fade show active"
-                id="profile-tab-pane"
-                role="tabpanel"
-                aria-labelledby="profile-tab"
-                tabIndex="0"
-              >
-                <h6 className="mb-4">User Profile</h6>
+              <div className="tab-pane fade show active" id="profile-tab-pane">
+                <h6 className="mb-4">Профиль пользователя</h6>
 
                 <form
                   className="custom-form profile-form"
-                  action="#"
-                  method="post"
-                  role="form"
+                  onSubmit={onSubmitForm}
                 >
-                  <input
-                    className="form-control"
+                  <InputField
                     type="text"
-                    name="profile-name"
-                    id="profile-name"
-                    placeholder="John Doe"
+                    name="name"
+                    placeholder="Ваше Имя"
+                    value={data.name}
+                    error={error.name}
+                    onChange={handleChange}
                   />
 
-                  <input
-                    className="form-control"
+                  <InputField
                     type="email"
-                    name="profile-email"
-                    id="profile-email"
-                    placeholder="Johndoe@gmail.com"
+                    name="email"
+                    placeholder="Ваша почта"
+                    value={data.email}
+                    error={error.email}
+                    onChange={handleChange}
                   />
 
-                  <div className="input-group mb-1">
+                  <InputField
+                    type="number"
+                    name="phone"
+                    placeholder="Ваш номер телефона"
+                    value={data.phone}
+                    error={error.phone}
+                    onChange={handleChange}
+                  />
+
+                  {/* <div className="input-group mb-1">
                     <img
                       src="images/profile/senior-man-white-sweater-eyeglasses.jpg"
                       className="profile-image img-fluid"
@@ -102,133 +147,19 @@ const Settings = (props) => {
                       className="form-control"
                       id="inputGroupFile02"
                     />
-                  </div>
+                  </div> */}
 
                   <div className="d-flex">
-                    <button type="button" className="form-control me-3">
-                      Reset
-                    </button>
-
-                    <button type="submit" className="form-control ms-2">
-                      Update
-                    </button>
-                  </div>
-                </form>
-              </div>
-
-              <div
-                className="tab-pane fade"
-                id="password-tab-pane"
-                role="tabpanel"
-                aria-labelledby="password-tab"
-                tabIndex="0"
-              >
-                <h6 className="mb-4">Password</h6>
-
-                <form
-                  className="custom-form password-form"
-                  action="#"
-                  method="post"
-                  role="form"
-                >
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    pattern="[0-9a-zA-Z]{4,10}"
-                    className="form-control"
-                    placeholder="Current Password"
-                    required=""
-                  />
-
-                  <input
-                    type="password"
-                    name="confirm_password"
-                    id="confirm_password"
-                    pattern="[0-9a-zA-Z]{4,10}"
-                    className="form-control"
-                    placeholder="New Password"
-                    required=""
-                  />
-
-                  <input
-                    type="password"
-                    name="confirm_password"
-                    id="confirm_password"
-                    pattern="[0-9a-zA-Z]{4,10}"
-                    className="form-control"
-                    placeholder="Confirm Password"
-                    required=""
-                  />
-
-                  <div className="d-flex">
-                    <button type="button" className="form-control me-3">
-                      Reset
-                    </button>
-
-                    <button type="submit" className="form-control ms-2">
-                      Update Password
-                    </button>
-                  </div>
-                </form>
-              </div>
-
-              <div
-                className="tab-pane fade"
-                id="notification-tab-pane"
-                role="tabpanel"
-                aria-labelledby="notification-tab"
-                tabIndex="0"
-              >
-                <h6 className="mb-4">Notification</h6>
-
-                <form
-                  className="custom-form notification-form"
-                  action="#"
-                  method="post"
-                  role="form"
-                >
-                  <div className="form-check form-switch d-flex mb-3 ps-0">
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexSwitchCheckCheckedOne"
+                    <button
+                      type="button"
+                      onClick={handleReset}
+                      className="form-control me-3"
                     >
-                      Account activity
-                    </label>
-
-                    <input
-                      className="form-check-input ms-auto"
-                      type="checkbox"
-                      name="form-check-input"
-                      role="switch"
-                      id="flexSwitchCheckCheckedOne"
-                    />
-                  </div>
-
-                  <div className="form-check form-switch d-flex mb-3 ps-0">
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexSwitchCheckCheckedTwo"
-                    >
-                      Payment updated
-                    </label>
-
-                    <input
-                      className="form-check-input ms-auto"
-                      type="checkbox"
-                      name="form-check-input"
-                      role="switch"
-                      id="flexSwitchCheckCheckedTwo"
-                    />
-                  </div>
-
-                  <div className="d-flex mt-4">
-                    <button type="button" className="form-control me-3">
-                      Reset
+                      Сброс
                     </button>
 
                     <button type="submit" className="form-control ms-2">
-                      Update Password
+                      Обновить
                     </button>
                   </div>
                 </form>

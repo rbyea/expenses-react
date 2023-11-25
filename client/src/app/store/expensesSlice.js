@@ -28,10 +28,15 @@ const expensesSlice = createSlice({
       state.isLoading = false;
     },
     expensesUpdateItem: (state, action) => {
-      console.log("action.payload", action.payload);
       state.entities[
         state.entities.findIndex((ex) => ex._id === action.payload._id)
       ] = action.payload;
+      state.isLoading = false;
+    },
+    expensesDeleteItem: (state, action) => {
+      state.entities = state.entities.filter((expense) => {
+        return expense._id !== action.payload;
+      });
       state.isLoading = false;
     }
   }
@@ -44,8 +49,21 @@ const {
   expensesRequested,
   expensesRequestFailed,
   expensesCreatedReceived,
-  expensesUpdateItem
+  expensesUpdateItem,
+  expensesDeleteItem
 } = actions;
+
+export const deleteExpense = (id) => async (dispatch) => {
+  dispatch(expensesRequested());
+  try {
+    const { content } = await expensesService.delete(id);
+    if (!content) {
+      dispatch(expensesDeleteItem(id));
+    }
+  } catch (error) {
+    dispatch(expensesRequestFailed(error.message));
+  }
+};
 
 export const loadingExpenses = (userId) => async (dispatch) => {
   dispatch(expensesRequested());

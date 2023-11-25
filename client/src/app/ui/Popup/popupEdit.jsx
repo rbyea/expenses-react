@@ -7,10 +7,12 @@ import { getCategories } from "../../store/categoriesSlice";
 import SelectField from "../Form/selectField";
 import { validator } from "../../utils/validator";
 import { getExpensesList, updateExpenses } from "../../store/expensesSlice";
-import { getIncomeList } from "../../store/incomeSlice";
+import { getIncomeList, updateIncome } from "../../store/incomeSlice";
 import InputField from "../Form/InputField";
 import TextareaField from "../Form/TextareaField";
 import { getCurrentUserId } from "../../store/usersSlice";
+import { closePopupEdit } from "../../store/popupSlice";
+import { toast } from "react-toastify";
 
 const PopupEdit = ({ popupRef, handleClose, close, type, id }) => {
   const dispatch = useDispatch();
@@ -104,9 +106,14 @@ const PopupEdit = ({ popupRef, handleClose, close, type, id }) => {
 
     if (expensesArray?.length > 0) {
       dispatch(updateExpenses(data));
+    } else if (incomeArray?.length > 0) {
+      dispatch(updateIncome(data));
     }
 
-    console.log("data", data);
+    toast.success("Успешно обновлено!", {
+      autoClose: 3000
+    });
+    dispatch(closePopupEdit());
   };
 
   return (

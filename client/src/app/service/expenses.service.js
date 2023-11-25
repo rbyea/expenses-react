@@ -18,6 +18,10 @@ const expensesService = {
   update: async (payload) => {
     const { data } = await httpService.put(expensesEndpoint, payload);
     return data;
+  },
+  delete: async (itemId) => {
+    const { data } = await httpService.delete(expensesEndpoint + itemId);
+    return data;
   }
 };
 

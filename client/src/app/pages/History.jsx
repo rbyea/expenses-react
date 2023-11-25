@@ -4,8 +4,28 @@ import Transations from "../components/Transations/Transations";
 import Footer from "../components/Footer/Footer";
 import Pagination from "../ui/Pagination";
 import Table from "../ui/Table/Table";
+import { paginate } from "../utils/paginate";
+import { getExpensesList } from "../store/expensesSlice";
+import { getIncomeList } from "../store/incomeSlice";
+import { useSelector } from "react-redux";
 
 const Wallet = (props) => {
+  const expensesList = useSelector(getExpensesList());
+  const incomeList = useSelector(getIncomeList());
+  const globalArray = [...(expensesList || []), ...(incomeList || [])];
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const pageSize = 10;
+  const handlePageChange = (pageIndex) => {
+    setCurrentPage(pageIndex);
+  };
+
+  const count = globalArray.length;
+
+  const corArray = globalArray?.sort(
+    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+  );
+  const itemsCrop = paginate(corArray, currentPage, pageSize);
+
   return (
     <main className="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start">
       <div className="title-group mb-3">
@@ -18,10 +38,15 @@ const Wallet = (props) => {
             <h5 className="mb-4">Действия по счету</h5>
 
             <div className="table-responsive">
-              <Table />
+              {itemsCrop && <Table itemsCrop={itemsCrop} />}
             </div>
 
-            <Pagination />
+            <Pagination
+              itemsCount={count}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
 

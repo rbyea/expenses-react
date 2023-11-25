@@ -158,19 +158,23 @@ const BarCharts = () => {
         />
       )}
 
-      {catalogDescriptionArray &&
-        catalogDescriptionArray.map((el) => (
-          <div className="catalog-desc-list" key={nanoid()}>
-            <strong>{el.category}:</strong>
-            <div className="catalog-desc-item">
-              {el.descriptions.map((description) => (
-                <div className="catalog-desc-block" key={nanoid()}>
-                  {description}
-                </div>
-              ))}
+      {catalogDescriptionArray.length > 0 && (
+        <div>
+          <h5>Описание</h5>
+          {catalogDescriptionArray.map((el) => (
+            <div className="catalog-desc-list" key={nanoid()}>
+              <strong>{el.category}:</strong>
+              <div className="catalog-desc-item">
+                {el.descriptions.map((description) => (
+                  <div className="catalog-desc-block" key={nanoid()}>
+                    {description}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      )}
     </>
   );
 };

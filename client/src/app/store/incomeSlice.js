@@ -26,6 +26,20 @@ const incomeSlice = createSlice({
     incomeCreatedReceived: (state, action) => {
       state.entities.push(action.payload);
       state.isLoading = false;
+    },
+    incomeUpdate: (state, action) => {
+      state.entities[
+        state.entities.findIndex((income) => {
+          return income._id === action.payload._id;
+        })
+      ] = action.payload;
+      state.isLoading = false;
+    },
+    incomeDelete: (state, action) => {
+      state.entities = state.entities.filter((income) => {
+        return income._id !== action.payload;
+      });
+      state.isLoading = false;
     }
   }
 });
@@ -36,8 +50,22 @@ const {
   incomeRequested,
   incomeReceived,
   incomeRequestFailed,
-  incomeCreatedReceived
+  incomeCreatedReceived,
+  incomeUpdate,
+  incomeDelete
 } = actions;
+
+export const incomeDeleteItem = (id) => async (dispatch) => {
+  dispatch(incomeRequested());
+  try {
+    const { content } = await incomeService.delete(id);
+    if (!content) {
+      dispatch(incomeDelete(id));
+    }
+  } catch (error) {
+    dispatch(incomeRequestFailed(error.message));
+  }
+};
 
 export const loadIncomeList = (userId) => async (dispatch) => {
   dispatch(incomeRequested());
@@ -54,6 +82,16 @@ export const createIncome = (payload) => async (dispatch) => {
   try {
     const { content } = await incomeService.create(payload);
     dispatch(incomeCreatedReceived(content));
+  } catch (error) {
+    dispatch(incomeRequestFailed(error.message));
+  }
+};
+
+export const updateIncome = (payload) => async (dispatch) => {
+  dispatch(incomeRequested());
+  try {
+    const { content } = await incomeService.update(payload);
+    dispatch(incomeUpdate(content));
   } catch (error) {
     dispatch(incomeRequestFailed(error.message));
   }

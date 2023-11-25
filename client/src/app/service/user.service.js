@@ -1,4 +1,5 @@
 import httpService from "./http.service";
+import localStorageService from "./localStorage.service";
 const userEndpoint = "users/";
 
 const userService = {
@@ -8,6 +9,13 @@ const userService = {
   },
   create: async (payload) => {
     const { data } = await httpService.put(userEndpoint + payload._id, payload);
+    return data;
+  },
+  update: async (payload) => {
+    const { data } = await httpService.patch(
+      userEndpoint + localStorageService.getLocalIdKey(),
+      payload
+    );
     return data;
   }
 };

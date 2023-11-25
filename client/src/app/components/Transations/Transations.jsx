@@ -35,7 +35,7 @@ const Transations = (props) => {
               <div className="d-flex align-items-center">
                 <div>
                   <p>
-                    <a href="transation-detail">{el.type}</a>
+                    <span>{el.type}</span>
                   </p>
 
                   <small className="text-muted">{el.description}</small>

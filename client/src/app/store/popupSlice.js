@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   statusPopupWaller: false,
-  statusPopupEdit: false
+  statusPopupEdit: false,
+  itemId: null
 };
 
 const popupSlice = createSlice({
@@ -20,14 +21,26 @@ const popupSlice = createSlice({
     },
     popupCloseEdit: (state) => {
       state.statusPopupEdit = false;
+    },
+    itemId: (state, action) => {
+      state.itemId = action.payload;
     }
   }
 });
 
 const { actions, reducer: popupReducer } = popupSlice;
 
-const { popupOpenWallet, popupCloseWallet, popupOpenEdit, popupCloseEdit } =
-  actions;
+const {
+  popupOpenWallet,
+  popupCloseWallet,
+  popupOpenEdit,
+  popupCloseEdit,
+  itemId
+} = actions;
+
+export const addItemId = (id) => (dispatch) => {
+  dispatch(itemId(id));
+};
 
 export const openPopup = () => (dispatch) => {
   dispatch(popupOpenWallet());
@@ -45,5 +58,6 @@ export const closePopupEdit = () => (dispatch) => {
 
 export const getStatusPopup = () => (state) => state.popup.statusPopupWaller;
 export const getStatusPopupEdit = () => (state) => state.popup.statusPopupEdit;
+export const getItemId = () => (state) => state.popup.getItemId;
 
 export default popupReducer;

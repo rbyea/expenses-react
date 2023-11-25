@@ -27,6 +27,43 @@ router
         message: "На сервере произошла ошибка. Попробуйте позже",
       });
     }
+  })
+  .put("/", auth, async (req, res) => {
+    try {
+      const updateItem = await Income.findByIdAndUpdate(
+        {
+          _id: req.body._id,
+        },
+        {
+          number: req.body.number,
+          description: req.body.description,
+          type: req.body.type,
+          userId: req.user._id,
+        },
+        {
+          new: true,
+        }
+      );
+
+      res.send(updateItem);
+    } catch (error) {
+      res.status(500).json({
+        message: "На сервере произошла ошибка. Попробуйте позже",
+        error: error.message,
+      });
+    }
+  })
+  .delete("/:itemId", auth, async (req, res) => {
+    try {
+      const itemId = req.params.itemId;
+      await Income.deleteMany({ _id: itemId });
+
+      res.send(null);
+    } catch (error) {
+      res.status(500).json({
+        message: "На сервере произошла ошибка. Попробуйте позже",
+      });
+    }
   });
 
 module.exports = router;

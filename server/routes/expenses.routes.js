@@ -30,7 +30,7 @@ router
   })
   .put("/", auth, async (req, res) => {
     try {
-      const updateExpense = await Expenses.findOneAndReplace(
+      const updateExpense = await Expenses.findOneAndUpdate(
         {
           _id: req.body._id,
         },
@@ -40,6 +40,9 @@ router
           category: req.body.category,
           type: req.body.type,
           userId: req.user._id,
+        },
+        {
+          new: true,
         }
       );
 
@@ -48,6 +51,18 @@ router
       res.status(500).json({
         message: "На сервере произошла ошибка. Попробуйте позже",
         error: error.message,
+      });
+    }
+  })
+  .delete("/:itemId", auth, async (req, res) => {
+    try {
+      const itemId = req.params.itemId;
+      await Expenses.deleteMany({ _id: itemId });
+
+      res.send(null);
+    } catch (error) {
+      res.status(500).json({
+        message: "На сервере произошла ошибка. Попробуйте позже",
       });
     }
   });

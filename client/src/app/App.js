@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import LoaderUser from "./ui/hoc/loaderUser";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const { pathname } = useLocation();
@@ -31,6 +33,8 @@ function App() {
             </Switch>
           </div>
         </div>
+
+        <ToastContainer />
       </div>
     </LoaderUser>
   );

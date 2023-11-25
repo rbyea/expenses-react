@@ -18012,3 +18012,30 @@ strong {
 .account-table tr td:nth-child(3) {
   width: 190px;
 }
+
+.close-item {
+  border: none;
+  background-color: #ea2626;
+  transition: all 0.4s ease;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+}
+
+.close-item:hover {
+  background-color: #da0000;
+}
+
+.table-row-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-row-center .btn {
+  margin-right: 10px;
+}

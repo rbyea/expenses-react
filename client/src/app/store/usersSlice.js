@@ -53,6 +53,14 @@ const usersSlice = createSlice({
     authRequestFailed: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
+    },
+    updateUser: (state, action) => {
+      state.entities[
+        state.entities.findIndex((user) => {
+          return user._id === action.payload._id;
+        })
+      ] = action.payload;
+      state.isLoading = false;
     }
   }
 });
@@ -64,10 +72,21 @@ const {
   usersGetFailed,
   userLogOut,
   authRequestFailed,
-  authRequestSuccess
+  authRequestSuccess,
+  updateUser
 } = actions;
 
 const authRequested = createAction("users/authRequested");
+
+export const updateProfileUser = (payload) => async (dispatch) => {
+  dispatch(usersRequested());
+  try {
+    const { content } = await userService.update(payload);
+    dispatch(updateUser(content));
+  } catch (error) {
+    dispatch(authRequestFailed(error.message));
+  }
+};
 
 export const signUp = ({ payload, redirect }) => {
   return async (dispatch) => {
@@ -139,5 +158,6 @@ export const getCurrentUser = (id) => (state) => {
 export const getIsLoggedIn = () => (state) => state.users.auth;
 export const getUsersList = () => (state) => state.users.entities;
 export const getLoadingUsers = () => (state) => state.users.isLoading;
+export const getUserError = () => (state) => state.users.error;
 
 export default usersReducer;
