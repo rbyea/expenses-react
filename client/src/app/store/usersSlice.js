@@ -97,7 +97,7 @@ export const signUp = ({ payload, redirect }) => {
 
       localStorageService.setTokens(data);
 
-      history.push(redirect);
+      history.push(`${redirect}${data.userId}`);
     } catch (error) {
       dispatch(authRequestFailed(error.message));
     }

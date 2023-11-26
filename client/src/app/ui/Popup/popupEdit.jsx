@@ -143,6 +143,7 @@ const PopupEdit = ({ popupRef, handleClose, close, type, id }) => {
                 )}
                 <div className={styles.item}>
                   <InputField
+                    label="Сумма транзакции"
                     type="number"
                     name="number"
                     placeholder="Введите сумму"
@@ -153,6 +154,7 @@ const PopupEdit = ({ popupRef, handleClose, close, type, id }) => {
                 </div>
                 <div className={styles.item}>
                   <TextareaField
+                    label="Описание транзакции"
                     name="description"
                     placeholder="Введите описание"
                     value={data.description}

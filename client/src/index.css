@@ -18039,3 +18039,36 @@ strong {
 .table-row-center .btn {
   margin-right: 10px;
 }
+
+form label {
+  width: 100%;
+}
+
+form label span {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.custom-block-container .mb-4:last-child {
+  margin-bottom: 0 !important;
+}
+
+.historyContainer {
+  height: calc(100vh - 136px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.centerBasket {
+  text-align: center;
+}
+
+.swiper-users .swiper {
+  padding-bottom: 20px;
+}
+
+.swiper-users .swiper-scrollbar {
+  opacity: 1 !important;
+}

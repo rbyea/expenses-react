@@ -10,6 +10,7 @@ import { totalBalance } from "../../utils/totalBalance";
 import { getIncomeList } from "../../store/incomeSlice";
 import { closePopup } from "../../store/popupSlice";
 import { getCategories } from "../../store/categoriesSlice";
+import TextareaField from "../Form/TextareaField";
 
 const Expenses = (props) => {
   const categoriesList = useSelector(getCategories());
@@ -104,9 +105,9 @@ const Expenses = (props) => {
             />
           </div>
           <div className={styles.item}>
-            <InputField
-              type="text"
-              placeholder="Описание"
+            <TextareaField
+              label="Описание транзации"
+              placeholder="Введите описание"
               value={data.description}
               error={error.description}
               name="description"

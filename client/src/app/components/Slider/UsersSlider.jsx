@@ -8,8 +8,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/scrollbar";
+
+import { Scrollbar } from "swiper/modules";
 
 const UsersSlider = (props) => {
   const usersList = useSelector(getUsersList());
@@ -22,12 +24,17 @@ const UsersSlider = (props) => {
     setUsers(newArray);
   }, [usersList]);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <>
+    <div className="swiper-users">
       <Swiper
-        pagination={{
-          type: "fraction"
+        scrollbar={{
+          hide: true
         }}
+        modules={[Scrollbar]}
         slidesPerView={6.5}
         spaceBetween={10}
         className="mySwiper"
@@ -38,6 +45,7 @@ const UsersSlider = (props) => {
               <div className={styles.swiperWrapperItem}>
                 <a
                   href="#"
+                  onClick={(e) => handleClick(e)}
                   title={user.name}
                   className={styles.customUsersCircle}
                 >
@@ -47,7 +55,7 @@ const UsersSlider = (props) => {
             </SwiperSlide>
           ))}
       </Swiper>
-    </>
+    </div>
   );
 };
 

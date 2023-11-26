@@ -6,6 +6,7 @@ import { createIncome } from "../../store/incomeSlice";
 import styles from "./popupWallet.module.css";
 import { validator } from "../../utils/validator";
 import { closePopup } from "../../store/popupSlice";
+import TextareaField from "../Form/TextareaField";
 
 const Income = (props) => {
   const dispatch = useDispatch();
@@ -71,9 +72,9 @@ const Income = (props) => {
         />
       </div>
       <div className={styles.item}>
-        <InputField
-          type="text"
-          placeholder="Описание"
+        <TextareaField
+          label="Описание транзации"
+          placeholder="Введите описание"
           value={data.description}
           error={error.description}
           name="description"

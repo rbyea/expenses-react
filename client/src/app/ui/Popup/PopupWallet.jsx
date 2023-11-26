@@ -38,7 +38,7 @@ const PopupWallet = ({ popupRef, handleClose, close }) => {
             </a>
 
             <div className={styles.popupContent}>
-              <h3 className={styles.center}>Добавить транзакции</h3>
+              <h3 className={styles.center}>Добавить транзакцию</h3>
               <div className={styles.item}>
                 <SelectField
                   label="Тип транзакции"

@@ -2,33 +2,36 @@ import React from "react";
 import Footer from "../components/Footer/Footer";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCurrentUser,
-  getUserError,
-  updateProfileUser
-} from "../store/usersSlice";
+import { getCurrentUser, updateProfileUser } from "../store/usersSlice";
 import { validator } from "../utils/validator";
 import InputField from "../ui/Form/InputField";
 import { toast } from "react-toastify";
+import Preloader from "../ui/Preloader/Preloader";
 
 const Settings = (props) => {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const currentUser = useSelector(getCurrentUser(userId));
-  const statusError = useSelector(getUserError());
-
-  console.log(statusError);
 
   const [error, setError] = React.useState({});
 
-  console.log("error", error);
-
   const [data, setData] = React.useState({
-    userId: currentUser?._id || userId || "",
-    name: currentUser?.name || "",
-    email: currentUser?.email || "",
-    phone: currentUser?.phone || ""
+    useId: "",
+    name: "",
+    email: "",
+    phone: ""
   });
+
+  React.useEffect(() => {
+    setData({
+      userId: currentUser?._id || userId || "",
+      name: currentUser?.name || "",
+      email: currentUser?.email || "",
+      phone: currentUser?.phone || ""
+    });
+  }, [currentUser]);
+
+  console.log(data, "data");
 
   const validatorConfig = {
     name: {
@@ -85,6 +88,11 @@ const Settings = (props) => {
       phone: ""
     }));
   };
+
+  if (!currentUser) {
+    return <Preloader />;
+  }
+
   return (
     <main className="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start">
       <div className="title-group mb-3">
@@ -127,7 +135,7 @@ const Settings = (props) => {
                   />
 
                   <InputField
-                    type="number"
+                    type="text"
                     name="phone"
                     placeholder="Ваш номер телефона"
                     value={data.phone}
