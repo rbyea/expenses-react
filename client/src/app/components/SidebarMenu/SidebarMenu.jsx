@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { LogOut, getIsLoggedIn } from "../../store/usersSlice";
 import PopupWallet from "../../ui/Popup/PopupWallet";
 import { closePopup, getStatusPopup, openPopup } from "../../store/popupSlice";
+import PropTypes from "prop-types";
 
-const SidebarMenu = (props) => {
+const SidebarMenu = ({ mobileMenuStatus, setMobileMenuStatus }) => {
   const statusPopup = useSelector(getStatusPopup());
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -58,6 +59,10 @@ const SidebarMenu = (props) => {
     }
   ];
 
+  const handleClickLink = () => {
+    setMobileMenuStatus();
+  };
+
   return (
     <>
       <PopupWallet
@@ -69,7 +74,7 @@ const SidebarMenu = (props) => {
         id="sidebarMenu"
         className={`col-md-3 col-lg-3 d-md-block sidebar collapse ${
           statusPopup === true ? "popup-open" : ""
-        }`}
+        } ${mobileMenuStatus ? "show" : ""}`}
       >
         <div className="position-sticky py-4 px-3 sidebar-sticky">
           <ul className="nav flex-column h-100">
@@ -78,6 +83,7 @@ const SidebarMenu = (props) => {
                 <Link
                   className={`nav-link ${el.link === pathname ? "active" : ""}`}
                   to={el.link ? el.link : "/"}
+                  onClick={handleClickLink}
                 >
                   {el.icon}
                   {el.name}
@@ -103,6 +109,11 @@ const SidebarMenu = (props) => {
       </nav>
     </>
   );
+};
+
+SidebarMenu.propTypes = {
+  mobileMenuStatus: PropTypes.bool,
+  setMobileMenuStatus: PropTypes.func
 };
 
 export default SidebarMenu;

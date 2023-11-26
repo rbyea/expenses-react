@@ -9,13 +9,6 @@ const HeaderProfile = (props) => {
 
   return (
     <>
-      <button
-        className="navbar-toggler position-absolute d-md-none collapsed"
-        type="button"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
       <div className="navbar-nav me-lg-2">
         <div className="nav-item text-nowrap d-flex align-items-center">
           <div className="dropdown px-3">

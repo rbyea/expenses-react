@@ -31,8 +31,6 @@ const Settings = (props) => {
     });
   }, [currentUser]);
 
-  console.log(data, "data");
-
   const validatorConfig = {
     name: {
       isRequired: {

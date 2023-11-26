@@ -38,6 +38,38 @@ const UsersSlider = (props) => {
         slidesPerView={6.5}
         spaceBetween={10}
         className="mySwiper"
+        breakpoints={{
+          320: {
+            slidesPerView: 2.5
+          },
+          340: {
+            slidesPerView: 3.5
+          },
+          550: {
+            slidesPerView: 4.5
+          },
+          990: {
+            slidesPerView: 2.5
+          },
+          1060: {
+            slidesPerView: 2.5
+          },
+          1200: {
+            slidesPerView: 3.5
+          },
+          1350: {
+            slidesPerView: 4.5
+          },
+          1400: {
+            slidesPerView: 4.5
+          },
+          1556: {
+            slidesPerView: 5.5
+          },
+          1696: {
+            slidesPerView: 6.5
+          }
+        }}
       >
         {users &&
           users.map((user) => (

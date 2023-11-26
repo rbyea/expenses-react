@@ -14,16 +14,29 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const { pathname } = useLocation();
+  const [mobileMenuStatus, setMobileMenuStatus] = React.useState(false);
+
+  const handleBurger = () => {
+    setMobileMenuStatus(!mobileMenuStatus);
+  };
+
+  console.log(mobileMenuStatus);
 
   return (
     <LoaderUser>
       <div className="App">
-        <Header />
+        <Header
+          mobileMenuStatus={mobileMenuStatus}
+          setMobileMenuStatus={handleBurger}
+        />
 
         <div className="container-fluid">
           <div className="row">
             {pathname !== "/login" && pathname !== "/login/register" && (
-              <SidebarMenu />
+              <SidebarMenu
+                setMobileMenuStatus={handleBurger}
+                mobileMenuStatus={mobileMenuStatus}
+              />
             )}
             <Switch>
               <ProtectedRoute path="/history/:userId?" component={Wallet} />

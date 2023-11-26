@@ -3,9 +3,16 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getIsLoggedIn } from "../../store/usersSlice";
 import HeaderProfile from "./HeaderProfile";
+import PropTypes from "prop-types";
 
-const Header = (props) => {
+const Header = ({ setMobileMenuStatus, mobileMenuStatus }) => {
   const isLoggedIn = useSelector(getIsLoggedIn());
+
+  const handleClickBurger = (e) => {
+    e.preventDefault();
+
+    setMobileMenuStatus();
+  };
 
   return (
     <header className="navbar sticky-top flex-md-nowrap">
@@ -28,9 +35,23 @@ const Header = (props) => {
         </Link>
       </div>
 
+      <button
+        className="navbar-toggler position-absolute d-md-none collapsed"
+        type="button"
+        aria-expanded={mobileMenuStatus}
+        onClick={(e) => handleClickBurger(e)}
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
       {isLoggedIn && <HeaderProfile />}
     </header>
   );
+};
+
+Header.propTypes = {
+  setMobileMenuStatus: PropTypes.func,
+  mobileMenuStatus: PropTypes.bool
 };
 
 export default Header;

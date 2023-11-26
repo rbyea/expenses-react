@@ -18072,3 +18072,68 @@ form label span {
 .swiper-users .swiper-scrollbar {
   opacity: 1 !important;
 }
+
+@media (max-width: 1370px) {
+  .custom-block {
+    padding: 15px;
+  }
+  .custom-block-profile {
+    min-height: 262px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .custom-block-balance::after {
+    top: -112px;
+    right: -48px;
+  }
+
+  .custom-block-balance::before {
+    top: -96px;
+    right: -45px;
+  }
+
+  .custom-block-balance h2 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  @media screen and (max-width: 767px) {
+    #sidebarMenu {
+      top: 0;
+    }
+
+    .sidebar-sticky {
+      top: 117px;
+      padding-top: 0 !important;
+      height: calc(100vh - 58px);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-toggler {
+    width: 30px;
+    height: 30px;
+  }
+  .navbar-toggler .navbar-toggler-icon:before, .navbar-toggler .navbar-toggler-icon:after {
+    width: 18px;
+  }
+  .navbar-toggler .navbar-toggler-icon {
+    width: 18px;
+  }
+  .navbar-toggler .navbar-toggler-icon::before {
+    top: -6px;
+  }
+  .navbar-toggler .navbar-toggler-icon::after {
+    top: 6px;
+  }
+
+  .navbar-nav .dropdown:last-child {
+    margin-right: 35px;
+  }
+  .navbar-brand {
+    margin-right: 0 !important;
+  }
+}
