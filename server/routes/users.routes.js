@@ -18,7 +18,8 @@ router
     try {
       const { userId } = req.params;
       if (userId === req.user._id) {
-        const updateUser = await User.findByIdAndUpdate(userId, req.body, {
+        const updateData = req.body;
+        const updateUser = await User.findByIdAndUpdate(userId, updateData, {
           new: true,
         });
         res.send(updateUser);

@@ -18137,3 +18137,43 @@ form label span {
     margin-right: 0 !important;
   }
 }
+
+@media (max-width: 430px) {
+  .profile-form .d-flex {
+    flex-direction: column;
+  }
+
+  .profile-form .d-flex button {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    margin-bottom: 10px;
+  }
+
+  .profile-form .d-flex button:last-child {
+    margin-bottom: 0;
+  }
+
+  .login-page .custom-block {
+    padding: 0;
+  }
+}
+
+.nav-link-circle img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.input-profile-file {
+  height: 43px;
+  width: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #cccccc8a;
+  margin-right: 10px;
+}
+
+.swiper-users .swiper-slide div {
+  font-size: 0;
+}

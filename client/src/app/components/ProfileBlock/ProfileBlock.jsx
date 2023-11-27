@@ -26,7 +26,11 @@ const ProfileBlock = (props) => {
           <>
             <div className="custom-block-profile-image-wrap mb-4">
               <div className={styles.customBlockImageCircle}>
-                {Array.from(currentUser.name)[0]}
+                {currentUser.profileImage ? (
+                  <img src={currentUser.profileImage} alt="" />
+                ) : (
+                  Array.from(currentUser.name)[0]
+                )}
               </div>
 
               <Link

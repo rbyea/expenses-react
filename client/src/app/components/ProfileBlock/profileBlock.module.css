@@ -8,4 +8,11 @@
   justify-content: center;
   color: #fff;
   font-size: 40px;
+  overflow: hidden;
+}
+
+.customBlockImageCircle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

@@ -35,16 +35,19 @@ const Header = ({ setMobileMenuStatus, mobileMenuStatus }) => {
         </Link>
       </div>
 
-      <button
-        className="navbar-toggler position-absolute d-md-none collapsed"
-        type="button"
-        aria-expanded={mobileMenuStatus}
-        onClick={(e) => handleClickBurger(e)}
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
-      {isLoggedIn && <HeaderProfile />}
+      {isLoggedIn && (
+        <>
+          <button
+            className="navbar-toggler position-absolute d-md-none collapsed"
+            type="button"
+            aria-expanded={mobileMenuStatus}
+            onClick={(e) => handleClickBurger(e)}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <HeaderProfile />
+        </>
+      )}
     </header>
   );
 };

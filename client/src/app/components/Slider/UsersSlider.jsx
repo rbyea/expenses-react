@@ -81,8 +81,19 @@ const UsersSlider = (props) => {
                   title={user.name}
                   className={styles.customUsersCircle}
                 >
-                  {Array.from(user.name)[0]}
+                  {user.profileImage ? (
+                    <>
+                      <img
+                        title={user.name}
+                        alt={user.name}
+                        src={user.profileImage}
+                      />
+                    </>
+                  ) : (
+                    Array.from(user.name)[0]
+                  )}
                 </a>
+                <span className={styles.swiperName}>{user.name.slice(0, 4)}</span>
               </div>
             </SwiperSlide>
           ))}

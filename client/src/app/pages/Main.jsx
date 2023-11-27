@@ -15,7 +15,6 @@ const Main = (props) => {
   const expensesList = useSelector(getExpensesList());
   const incomeList = useSelector(getIncomeList());
 
-  console.log(expensesList?.length, incomeList?.length);
   return (
     <main className="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start">
       <div className="title-group mb-3">

@@ -20,8 +20,6 @@ function App() {
     setMobileMenuStatus(!mobileMenuStatus);
   };
 
-  console.log(mobileMenuStatus);
-
   return (
     <LoaderUser>
       <div className="App">

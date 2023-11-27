@@ -7,6 +7,7 @@ import { validator } from "../utils/validator";
 import InputField from "../ui/Form/InputField";
 import { toast } from "react-toastify";
 import Preloader from "../ui/Preloader/Preloader";
+import FileField from "../ui/Form/FileField";
 
 const Settings = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +20,8 @@ const Settings = (props) => {
     useId: "",
     name: "",
     email: "",
-    phone: ""
+    phone: "",
+    profileImage: null
   });
 
   React.useEffect(() => {
@@ -27,7 +29,8 @@ const Settings = (props) => {
       userId: currentUser?._id || userId || "",
       name: currentUser?.name || "",
       email: currentUser?.email || "",
-      phone: currentUser?.phone || ""
+      phone: currentUser?.phone || "",
+      profileImage: currentUser?.profileImage || null
     });
   }, [currentUser]);
 
@@ -50,10 +53,26 @@ const Settings = (props) => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleChange = (target) => {
+  const handleChange = (event) => {
+    if (event.target?.name === "profileImage") {
+      if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = () => {
+          setData((prevState) => ({
+            ...prevState,
+            profileImage: reader.result
+          }));
+        };
+
+        reader.onerror = (error) => {
+          console.log("error: ", error);
+        };
+      }
+    }
     setData((prevState) => ({
       ...prevState,
-      [target.name]: target.value
+      [event.name]: event.value
     }));
   };
 
@@ -63,6 +82,8 @@ const Settings = (props) => {
     const isValid = validate();
 
     if (!isValid) return;
+
+    console.log(data);
 
     try {
       dispatch(updateProfileUser(data));
@@ -141,19 +162,25 @@ const Settings = (props) => {
                     onChange={handleChange}
                   />
 
-                  {/* <div className="input-group mb-1">
-                    <img
-                      src="images/profile/senior-man-white-sweater-eyeglasses.jpg"
-                      className="profile-image img-fluid"
-                      alt=""
-                    />
+                  <div className="input-group mb-1">
+                    {data.profileImage ? (
+                      <img
+                        src={`${data.profileImage ? data.profileImage : ""}`}
+                        className="profile-image img-fluid"
+                        alt=""
+                      />
+                    ) : (
+                      <div className="input-profile-file">
+                        <span>{Array.from(currentUser.name)[0]}</span>
+                      </div>
+                    )}
 
-                    <input
+                    <FileField
                       type="file"
-                      className="form-control"
-                      id="inputGroupFile02"
+                      name="profileImage"
+                      onChange={handleChange}
                     />
-                  </div> */}
+                  </div>
 
                   <div className="d-flex">
                     <button
