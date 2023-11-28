@@ -10,6 +10,7 @@ import BarCharts from "../components/Charts/BarCharts";
 import { useSelector } from "react-redux";
 import { getExpensesList } from "../store/expensesSlice";
 import { getIncomeList } from "../store/incomeSlice";
+import Chat from "../components/Chat/chat";
 
 const Main = (props) => {
   const expensesList = useSelector(getExpensesList());
@@ -23,6 +24,8 @@ const Main = (props) => {
 
       <div className="row my-4">
         <div className="col-lg-7 col-12">
+          <Chat />
+
           <Balance />
 
           {expensesList?.length !== 0 || incomeList?.length !== 0 ? (

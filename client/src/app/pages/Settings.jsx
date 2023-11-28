@@ -74,6 +74,8 @@ const Settings = (props) => {
       ...prevState,
       [event.name]: event.value
     }));
+
+    console.log(data);
   };
 
   const onSubmitForm = (e) => {
