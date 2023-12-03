@@ -63,7 +63,7 @@ async function start() {
     await mongoose.connect(config.get("mongoUri"));
     console.log(chalk.green(`MongoDB connected...`));
     server.listen(PORT, () =>
-      console.log(chalk.green(`Server has been started om port ${PORT}...`))
+      console.log(chalk.green(`Server has been started on port ${PORT}...`))
     );
   } catch (error) {
     console.log(chalk.red(error.message));

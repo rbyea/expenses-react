@@ -3,7 +3,6 @@ import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { getExpensesList } from "../../store/expensesSlice";
 import { getIncomeList } from "../../store/incomeSlice";
-import Preloader from "../../ui/Preloader/Preloader";
 
 const CircleCharts = (props) => {
   const expensesArray = useSelector(getExpensesList());
@@ -44,7 +43,7 @@ const CircleCharts = (props) => {
   );
 
   if (!incBalance && !expBalance) {
-    return <Preloader />;
+    return "Вы не добавили доход в этом месяце";
   }
 
   const state = {
